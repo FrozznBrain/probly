@@ -351,22 +351,61 @@
         <article role="main" id="furo-main-content">
           <section id="module-probly.layers.flax">
 <span id="probly-layers-flax"></span><h1>probly.layers.flax<a class="headerlink" href="#module-probly.layers.flax" title="Link to this heading">¶</a></h1>
+<p>Flax DropConnect and Conv2d implementations.</p>
 <p class="rubric">Classes</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.layers.flax.DropConnectLinear" title="probly.layers.flax.DropConnectLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DropConnectLinear</span></code></a>(base_layer[, p])</p></td>
-<td><p>Linear mit DropConnect auf die Gewichte während des Trainings.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.layers.flax.Conv2d" title="probly.layers.flax.Conv2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Conv2d</span></code></a>(in_channels, out_channels, kernel_size)</p></td>
+<td><p>PyTorch-like Conv2d implemented on top of flax.nnx.Conv.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.layers.flax.DropConnectLinear" title="probly.layers.flax.DropConnectLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DropConnectLinear</span></code></a>(base_layer[, p])</p></td>
+<td><p>Linear layer with DropConnect on weights during training.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py class">
+<dt class="sig sig-object py" id="probly.layers.flax.Conv2d">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">probly.layers.flax.</span></span><span class="sig-name descname"><span class="pre">Conv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_mode='zeros'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rngs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_dtype=&lt;class</span> <span class="pre">'jax.numpy.float32'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/layers/flax.html#Conv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.layers.flax.Conv2d" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>PyTorch-like Conv2d implemented on top of flax.nnx.Conv.
+Expects input in NCHW (N, C_in, H, W), returns NCHW (N, C_out, H_out, W_out).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="probly.layers.flax.Conv2d.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/layers/flax.html#Conv2d.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.layers.flax.Conv2d.__call__" title="Link to this definition">¶</a></dt>
+<dd><p>x: (N, C_in, H, W)  -&gt; returns (N, C_out, H_out, W_out)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>x</strong> (<em>Array</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="probly.layers.flax.DropConnectLinear">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">probly.layers.flax.</span></span><span class="sig-name descname"><span class="pre">DropConnectLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/layers/flax.html#DropConnectLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.layers.flax.DropConnectLinear" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Linear mit DropConnect auf die Gewichte während des Trainings.
-Wrappt eine bestehende nnx.Linear-Schicht.</p>
+<p>Linear layer with DropConnect on weights during training.</p>
+<p>Wichtig: Wir WRAPPEN keinen nnx.Linear mehr,
+sondern übernehmen nur dessen Parameter (kernel, bias).
+So tauchen keine nnx.Linear-Instanzen mehr im Modulbaum auf.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -381,23 +420,23 @@ Wrappt eine bestehende nnx.Linear-Schicht.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="probly.layers.flax.DropConnectLinear.__call__">
 <span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/layers/flax.html#DropConnectLinear.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.layers.flax.DropConnectLinear.__call__" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Forward pass with DropConnect.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>x</strong> (<em>Array</em>)</p></li>
-<li><p><strong>training</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>x</strong> (<em>Array</em>) – [batch, in_features]</p></li>
+<li><p><strong>training</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>) – <ul>
+<li><p>True  → DropConnect aktiv</p></li>
+<li><p>False → Inference mit Erwartungs-Skalierung</p></li>
+<li><p>None  → fallback auf getattr(self, “training”, False)</p></li>
+</ul>
+</p></li>
 </ul>
 </dd>
 </dl>
-<p>Forward-Pass mit DropConnect.
-:param x: [batch, in_features]
-:param training: Wenn True → DropConnect aktiv; wenn False → Inference-Skalierung;</p>
-<blockquote>
-<div><p>wenn None → fallback auf getattr(self, ‘training’, False)</p>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -470,6 +509,10 @@ Wrappt eine bestehende nnx.Linear-Schicht.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">probly.layers.flax</a><ul>
+<li><a class="reference internal" href="#probly.layers.flax.Conv2d"><code class="docutils literal notranslate"><span class="pre">Conv2d</span></code></a><ul>
+<li><a class="reference internal" href="#probly.layers.flax.Conv2d.__call__"><code class="docutils literal notranslate"><span class="pre">Conv2d.__call__()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#probly.layers.flax.DropConnectLinear"><code class="docutils literal notranslate"><span class="pre">DropConnectLinear</span></code></a><ul>
 <li><a class="reference internal" href="#probly.layers.flax.DropConnectLinear.__call__"><code class="docutils literal notranslate"><span class="pre">DropConnectLinear.__call__()</span></code></a></li>
 <li><a class="reference internal" href="#probly.layers.flax.DropConnectLinear.extra_repr"><code class="docutils literal notranslate"><span class="pre">DropConnectLinear.extra_repr()</span></code></a></li>

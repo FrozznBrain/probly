@@ -347,29 +347,42 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for probly.layers.flax</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">&quot;&quot;&quot;Flax DropConnect and Conv2d implementations.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">nnx</span>
 
+
 <div class="viewcode-block" id="DropConnectLinear">
 <a class="viewcode-back" href="../../../api/probly.layers.flax.html#probly.layers.flax.DropConnectLinear">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DropConnectLinear</span><span class="p">(</span><span class="n">nnx</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Linear mit DropConnect auf die Gewichte während des Trainings.</span>
-<span class="sd">    Wrappt eine bestehende nnx.Linear-Schicht.</span>
+<span class="sd">    Linear layer with DropConnect on weights during training.</span>
+
+<span class="sd">    Wichtig: Wir WRAPPEN keinen nnx.Linear mehr,</span>
+<span class="sd">    sondern übernehmen nur dessen Parameter (kernel, bias).</span>
+<span class="sd">    So tauchen keine nnx.Linear-Instanzen mehr im Modulbaum auf.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_layer</span><span class="p">:</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p must be in [0, 1); got </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_layer</span> <span class="o">=</span> <span class="n">base_layer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
-        <span class="c1"># Reproduzierbarer RNG-State (einfach gehalten)</span>
+        <span class="c1"># DropConnect-Parameter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="c1"># Metadaten aus der Basisschicht – robust auf weight/kernel</span>
+        <span class="c1"># Parameter direkt übernehmen (keinen nnx.Linear mehr speichern!)</span>
+        <span class="c1"># base_layer.kernel und base_layer.bias sind nnx.Param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">base_layer</span><span class="o">.</span><span class="n">kernel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Metadaten (optional, nur für repr / Debug)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">in_features</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;in_features&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_features</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;out_features&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
@@ -377,17 +390,17 @@
 <a class="viewcode-back" href="../../../api/probly.layers.flax.html#probly.layers.flax.DropConnectLinear.__call__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Forward-Pass mit DropConnect.</span>
+<span class="sd">        Forward pass with DropConnect.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            x: [batch, in_features]</span>
-<span class="sd">            training: Wenn True → DropConnect aktiv; wenn False → Inference-Skalierung;</span>
-<span class="sd">                      wenn None → fallback auf getattr(self, &#39;training&#39;, False)</span>
+<span class="sd">            training:</span>
+<span class="sd">                - True  → DropConnect aktiv</span>
+<span class="sd">                - False → Inference mit Erwartungs-Skalierung</span>
+<span class="sd">                - None  → fallback auf getattr(self, &quot;training&quot;, False)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Gewicht/Bias robust auslesen (NNX vs linen)</span>
-        <span class="n">weight</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">weight</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;kernel&quot;</span><span class="p">)</span>  <span class="c1"># linen-Kompatibilität</span>
-        <span class="n">bias</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_layer</span><span class="p">,</span> <span class="s2">&quot;bias&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span>
+        <span class="n">bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
 
         <span class="k">if</span> <span class="n">training</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">training</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;training&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -395,19 +408,17 @@
         <span class="k">if</span> <span class="n">training</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">,</span> <span class="n">subkey</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">)</span>
             <span class="n">keep_prob</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">subkey</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">keep_prob</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="c1"># dtype an Gewicht anpassen (wichtig bei float16/bfloat16)</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-            <span class="n">eff_weight</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">mask</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">subkey</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">keep_prob</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">weight</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="n">eff_weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">mask</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Erwartungswert-Korrektur bei Inference</span>
-            <span class="n">eff_weight</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+            <span class="c1"># Erwartungswert-Korrektur im Inference-Modus</span>
+            <span class="n">eff_weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
 
-        <span class="c1"># Linearer Vorwärtslauf</span>
-        <span class="c1"># (bewusst eigene MatMul statt base_layer(x), da wir eff_weight verwenden)</span>
+        <span class="c1"># Linear forward pass</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eff_weight</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">bias</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">bias</span><span class="o">.</span><span class="n">value</span>
         <span class="k">return</span> <span class="n">y</span></div>
 
 
@@ -417,11 +428,139 @@
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;bias=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_layer</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bias&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">None</span><span class="p">)</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="kc">None</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;bias=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="kc">None</span><span class="si">}</span><span class="s2">, &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;p=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span></div>
 </div>
 
+
+
+<span class="n">_Size2</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_pair</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">_Size2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected tuple of length 2, got </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Conv2d">
+<a class="viewcode-back" href="../../../api/probly.layers.flax.html#probly.layers.flax.Conv2d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">nnx</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PyTorch-like Conv2d implemented on top of flax.nnx.Conv.</span>
+<span class="sd">    Expects input in NCHW (N, C_in, H, W), returns NCHW (N, C_out, H_out, W_out).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">kernel_size</span><span class="p">:</span> <span class="n">_Size2</span><span class="p">,</span>
+        <span class="n">stride</span><span class="p">:</span> <span class="n">_Size2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">padding</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_Size2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">dilation</span><span class="p">:</span> <span class="n">_Size2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="s2">&quot;reflect&quot;</span><span class="p">,</span> <span class="s2">&quot;replicate&quot;</span><span class="p">,</span> <span class="s2">&quot;circular&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rngs</span><span class="p">:</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Rngs</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">param_dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">padding_mode</span> <span class="o">!=</span> <span class="s2">&quot;zeros&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;padding_mode=&#39;</span><span class="si">{</span><span class="n">padding_mode</span><span class="si">}</span><span class="s2">&#39; is not implemented; use &#39;zeros&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">k_h</span><span class="p">,</span> <span class="n">k_w</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="n">s_h</span><span class="p">,</span> <span class="n">s_w</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="n">d_h</span><span class="p">,</span> <span class="n">d_w</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">in_channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">k_h</span><span class="p">,</span> <span class="n">k_w</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="p">(</span><span class="n">s_h</span><span class="p">,</span> <span class="n">s_w</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_h</span><span class="p">,</span> <span class="n">d_w</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="n">groups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_flag</span> <span class="o">=</span> <span class="n">bias</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">=</span> <span class="n">padding_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param_dtype</span> <span class="o">=</span> <span class="n">param_dtype</span>
+
+        <span class="c1"># Handle padding argument</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">pad_str</span> <span class="o">=</span> <span class="n">padding</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">pad_str</span> <span class="o">==</span> <span class="s2">&quot;same&quot;</span><span class="p">:</span>
+                <span class="n">flax_padding</span> <span class="o">=</span> <span class="s2">&quot;SAME&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">pad_str</span> <span class="o">==</span> <span class="s2">&quot;valid&quot;</span><span class="p">:</span>
+                <span class="n">flax_padding</span> <span class="o">=</span> <span class="s2">&quot;VALID&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unsupported padding string &#39;</span><span class="si">{</span><span class="n">padding</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Use &#39;same&#39;, &#39;valid&#39;, or integer/tuple.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p_h</span><span class="p">,</span> <span class="n">p_w</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>        <span class="c1"># N</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>        <span class="c1"># C</span>
+                <span class="p">(</span><span class="n">p_h</span><span class="p">,</span> <span class="n">p_h</span><span class="p">),</span>    <span class="c1"># H</span>
+                <span class="p">(</span><span class="n">p_w</span><span class="p">,</span> <span class="n">p_w</span><span class="p">),</span>    <span class="c1"># W</span>
+            <span class="p">)</span>
+            <span class="n">flax_padding</span> <span class="o">=</span> <span class="s2">&quot;VALID&quot;</span>
+
+        <span class="c1"># Underlying nnx.Conv works on NHWC</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Conv</span><span class="p">(</span>
+            <span class="n">in_features</span><span class="o">=</span><span class="n">in_channels</span><span class="p">,</span>
+            <span class="n">out_features</span><span class="o">=</span><span class="n">out_channels</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="n">k_h</span><span class="p">,</span> <span class="n">k_w</span><span class="p">),</span>
+            <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="n">s_h</span><span class="p">,</span> <span class="n">s_w</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">=</span><span class="n">flax_padding</span><span class="p">,</span>
+            <span class="n">kernel_dilation</span><span class="o">=</span><span class="p">(</span><span class="n">d_h</span><span class="p">,</span> <span class="n">d_w</span><span class="p">),</span>
+            <span class="n">feature_group_count</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span>
+            <span class="n">use_bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">param_dtype</span><span class="o">=</span><span class="n">param_dtype</span><span class="p">,</span>
+            <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Conv2d.__call__">
+<a class="viewcode-back" href="../../../api/probly.layers.flax.html#probly.layers.flax.Conv2d.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        x: (N, C_in, H, W)  -&gt; returns (N, C_out, H_out, W_out)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Conv2d expects 4D input (N, C, H, W), got shape </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Input has </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> channels, but Conv2d.in_channels=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Apply explicit padding in NCHW if configured</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_padding</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">)</span>
+
+        <span class="c1"># nnx.Conv expects NHWC</span>
+        <span class="n">x_nhwc</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># (N, H, W, C)</span>
+        <span class="n">y_nhwc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x_nhwc</span><span class="p">)</span>
+
+        <span class="c1"># Back to NCHW</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">y_nhwc</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">y</span></div>
+</div>
+
+
+
+<span class="c1"># Make available as nnx.Conv2d and nnx.DropConnectLinear</span>
+<span class="nb">setattr</span><span class="p">(</span><span class="n">nnx</span><span class="p">,</span> <span class="s2">&quot;Conv2d&quot;</span><span class="p">,</span> <span class="n">Conv2d</span><span class="p">)</span>
+<span class="nb">setattr</span><span class="p">(</span><span class="n">nnx</span><span class="p">,</span> <span class="s2">&quot;DropConnectLinear&quot;</span><span class="p">,</span> <span class="n">DropConnectLinear</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>

@@ -8,5 +8,6 @@ probly.layers.flax
 
    .. autosummary::
    
+      Conv2d
       DropConnectLinear
    
