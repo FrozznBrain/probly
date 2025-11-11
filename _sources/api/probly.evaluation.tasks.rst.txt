@@ -9,5 +9,6 @@ probly.evaluation.tasks
    .. autosummary::
    
       out_of_distribution_detection
+      out_of_distribution_detection_aupr
       selective_prediction
    
