@@ -381,13 +381,34 @@
 </pre></div>
 </div>
 <p>In the practical implementation of DropConnect in Probly, entire layers (neurons) are considered. To set specific weights to 0, whole layers must be modified and replaced with new ones.</p>
+<p><strong>Imports</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">probly.transformation</span><span class="w"> </span><span class="kn">import</span> <span class="n">dropconnect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">nnx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Calling the model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flax_model_small_2d_2d</span> <span class="ow">and</span> <span class="n">flax_cons_linear_model</span><span class="p">:</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defining a basic model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">dropconnect</span><span class="p">(</span><span class="n">flax_model_small_2d_2d</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="c1"># Applying DropConnect to the model</span>
+<span class="n">model_dc</span> <span class="o">=</span> <span class="n">dropconnect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Testing DropConnect</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_dc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model_dc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;p&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">model_dc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="mf">0.5</span>
 </pre></div>
 </div>
 </div>
@@ -397,8 +418,64 @@
 <p>flax_custom_model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create RNGs</span>
+<span class="n">rngs</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Rngs</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Define a custom Flax model</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FlaxModel</span><span class="p">(</span><span class="n">nnx</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rngs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># Instantiating the Flax model</span>
+<span class="n">flax_custom_model</span> <span class="o">=</span> <span class="n">FlaxModel</span><span class="p">(</span><span class="n">rngs</span><span class="p">)</span>
+
+<span class="c1"># Applying DropConnect to the Flax model</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">dropconnect</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">flax_custom_model</span><span class="p">),</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="n">model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FlaxModel( # Param: 12 (48 B)
+  fc1=Linear( # Param: 6 (24 B)
+    bias=Param( # 2 (8 B)
+      value=Array(shape=(2,), dtype=dtype(&#39;float32&#39;))
+    ),
+    bias_init=&lt;function zeros at 0x139be5080&gt;,
+    dot_general=&lt;function dot_general at 0x1393c7a60&gt;,
+    dtype=None,
+    in_features=2,
+    kernel=Param( # 4 (16 B)
+      value=Array(shape=(2, 2), dtype=dtype(&#39;float32&#39;))
+    ),
+    kernel_init=&lt;function variance_scaling.&lt;locals&gt;.init at 0x13b3d20c0&gt;,
+    out_features=2,
+    param_dtype=float32,
+    precision=None,
+    preferred_element_type=None,
+    promote_dtype=&lt;function promote_dtype at 0x13b3d22a0&gt;,
+    use_bias=True
+  ),
+  fc2=DropConnectLinear( # Param: 6 (24 B)
+    p=0.5,
+    kernel=Param( # 4 (16 B)
+      value=Array(shape=(2, 2), dtype=dtype(&#39;float32&#39;))
+    ),
+    bias=Param( # 2 (8 B)
+      value=Array(shape=(2,), dtype=dtype(&#39;float32&#39;))
+    ),
+    in_features=2,
+    out_features=2
+  )
+)
 </pre></div>
 </div>
 </div>
