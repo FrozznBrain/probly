@@ -56,3 +56,40 @@ def out_of_distribution_detection(in_distribution: np.ndarray, out_distribution:
     labels = np.concatenate((np.zeros(len(in_distribution)), np.ones(len(out_distribution))))
     auroc = sm.roc_auc_score(labels, preds)
     return float(auroc)
+
+
+import numpy as np
+import sklearn.metrics as sm
+
+
+def fnr_at_tpr95(in_distribution: np.ndarray,
+                 out_distribution: np.ndarray) -> float:
+    """
+    Compute FNR@95%TPR for OOD detection.
+
+    Args:
+        in_distribution: scores for ID samples (higher = more ID-like)
+        out_distribution: scores for OOD samples (higher = more ID-like)
+
+    Returns:
+        fnr95: False Negative Rate at 95% True Positive Rate
+    """
+
+
+    scores = np.concatenate([in_distribution, out_distribution])
+    labels = np.concatenate([np.zeros(len(in_distribution)),np.ones(len(out_distribution))])
+
+    # ROC curve
+    fpr, tpr, thresholds = sm.roc_curve(labels, scores)
+
+    # Find first index where TPR >= 0.95
+    idx = np.where(tpr >= 0.95)[0]
+    if len(idx) == 0:
+        raise ValueError("Could not achieve 95% TPR with given scores.")
+
+    tpr95 = tpr[idx[0]]
+
+    # FNR = 1 - TPR
+    fnr95 = 1 - tpr95
+
+    return float(fnr95)
