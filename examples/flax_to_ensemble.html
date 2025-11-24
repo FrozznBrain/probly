@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Introduction to Ensemble flax - probly 0.3.1 documentation</title>
+        <title>&lt;no title&gt; - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -359,139 +359,45 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="introduction-to-ensemble-flax">
-<h1>Introduction to Ensemble flax<a class="headerlink" href="#introduction-to-ensemble-flax" title="Link to this heading">¶</a></h1>
-<p>An <strong>ensemble</strong> is a collection of multiple models with the same architecture but different parameter initializations.
-The models make predictions independently. Usually, the results are then averaged.
-Instead of a single instance of a neural network with fixed parameters, the ensemble contains multiple independent copies of the same model, whose parameters have been reinitialized.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Input → [Model 1] → \
-                   → Mean/Var → Output
-Input → [Model 2] → /
-</pre></div>
-</div>
-<p><strong>Flax</strong> is a neural network library for JAX that provides flexible and composable tools to build and train deep learning models.</p>
-<p>The <strong>param_reset-traverser</strong> searches the model for each <strong>Param</strong> object and replaces its value with newly randomized, normally distributed values using its own RNG key, ensuring that each ensemble copy has completely independent parameters.</p>
-<p>The code creates a traverser called <strong>param_reset</strong>, which specifically modifies Param objects while traversing a model. The registered function specifies that for each parameter found, a new random key is first generated, and then its value is replaced with normally distributed random numbers of the same shape; afterward, the updated parameter is returned. The param_reset traverser iterates through a Flax-NNX model:</p>
+          <p>An ensemble is a collection of multiple models with the same architecture.
+Each model makes predictions independently, and their outputs are typically aggregated—for example by averaging or voting—to produce a more robust final prediction.</p>
+<p>model 1 ─┐
+model 2 ─┼──&gt; combined → more stable predictions
+model 3 ─┘</p>
+<p>In this transformation, Flax models are specifically duplicated and combined into an ensemble.
+Given a Flax model such as:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">_future_</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">jax</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">flax.nnx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Rngs</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pytraverse</span><span class="w"> </span><span class="kn">import</span> <span class="n">traverse</span><span class="p">,</span> <span class="n">CLONE</span><span class="p">,</span> <span class="n">lazydispatch_traverser</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">probly.traverse_nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn_compose</span>
-
-<span class="c1"># Example: Reset-Traverser</span>
-<span class="n">param_reset</span> <span class="o">=</span> <span class="n">lazydispatch_traverser</span><span class="p">[</span><span class="nb">object</span><span class="p">](</span><span class="s2">&quot;param_reset&quot;</span><span class="p">)</span>
-<span class="nd">@param_reset</span><span class="o">.</span><span class="n">register</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Param</span><span class="p">,</span> <span class="n">rngs</span><span class="p">:</span> <span class="n">Rngs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Param</span><span class="p">:</span>
- <span class="n">key</span> <span class="o">=</span> <span class="n">rngs</span><span class="o">.</span><span class="n">params</span><span class="p">()</span>
- <span class="n">p</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
- <span class="k">return</span> <span class="n">p</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The <strong>_reset_copy</strong> function first creates a new RNG container initialized with the provided seed, which is responsible for parameter reinitialization. Then, using traverse, it creates a deep copy of the model, applying the param_reset traverser to all parameters so that each copy receives completely new, randomly initialized weights.</p>
-<p>The <strong>generate_flax_ensemble</strong> function creates an ensemble by copying the given model multiple times, with each copy reinitialized using _reset_copy and a unique seed. This results in multiple independent model instances with different parameter values. By calling register(Module, generate_flax_ensemble), this ensemble generation function is registered in the ProblySystem, allowing it to be automatically used for Flax modules.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensemble</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_flax_ensemble</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">n_members</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Module</span><span class="p">]:</span>
- <span class="k">return</span> <span class="p">[</span><span class="n">_reset_copy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_members</span><span class="p">)]</span>
-<span class="n">register</span><span class="p">(</span><span class="n">Module</span><span class="p">,</span> <span class="n">generate_flax_ensemble</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="different-network-architectures">
-<h1>Different Network Architectures<a class="headerlink" href="#different-network-architectures" title="Link to this heading">¶</a></h1>
-<p>The ensemble mechanism in Flax is model-agnostic — it can be applied to any network architecture that follows the Flax module structure.<br />
-Below, we show two simple examples:</p>
-<ol class="arabic simple">
-<li><p>A <strong>Linear (MLP)</strong> model for low-dimensional data</p></li>
-<li><p>A <strong>Convolutional Neural Network (CNN)</strong> for image data</p></li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">flax.linen</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flax.nnx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Param</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
-
-<span class="c1"># --- 1. Simple MLP ---</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">MLP</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">hidden_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span>
-    <span class="n">output_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
-
-    <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span>
 
 
-<span class="c1"># --- 2. Simple CNN ---</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SmallCNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleModel</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the model parameters.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
 
-    <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">avg_pool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># global average pooling</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the linear transformation w * x + b.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Each of these architectures can be combined with the <code class="docutils literal notranslate"><span class="pre">generate_flax_ensemble()</span></code> function
-to create ensembles of independent models.</p>
-<p>For example:</p>
+<p>we can create an ensemble with three copies from it.
+To do this, we call the transformation as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: create an ensemble of CNNs</span>
-<span class="n">cnn_model</span> <span class="o">=</span> <span class="n">SmallCNN</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ensemble_cnn</span> <span class="o">=</span> <span class="n">generate_flax_ensemble</span><span class="p">(</span><span class="n">cnn_model</span><span class="p">,</span> <span class="n">n_members</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">probly.transformation.ensemble.flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_flax_ensemble</span>
 
-<span class="c1"># Example: create an ensemble of MLPs</span>
-<span class="n">mlp_model</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ensemble_mlp</span> <span class="o">=</span> <span class="n">generate_flax_ensemble</span><span class="p">(</span><span class="n">mlp_model</span><span class="p">,</span> <span class="n">n_members</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SimpleModel</span><span class="p">()</span>
+
+<span class="n">ensemble</span> <span class="o">=</span> <span class="n">generate_flax_ensemble</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="example-usage-the-flax-model">
-<h1>Example usage - the Flax model:<a class="headerlink" href="#example-usage-the-flax-model" title="Link to this heading">¶</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">flax_model_small_2d_2d</span><span class="p">(</span><span class="n">flax_rngs</span><span class="p">:</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Rngs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
-<span class="w"> </span><span class="sd">&quot;&quot;&quot;Return a small linear model with 2 input and 2 output neurons.&quot;&quot;&quot;</span>
- <span class="n">model</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
- <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">flax_rngs</span><span class="p">),</span>
- <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">flax_rngs</span><span class="p">),</span>
- <span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">flax_rngs</span><span class="p">),</span>
- <span class="p">)</span>
- <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Creating an ensemble from a Flax model with 3 copies:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ensemble</span> <span class="o">=</span> <span class="n">generate_flax_ensemble</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">n_members</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 
         </article>
       </div>
