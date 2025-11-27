@@ -421,6 +421,51 @@
     <span class="n">auroc</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">auroc</span><span class="p">)</span></div>
 
+
+
+<div class="viewcode-block" id="fpr_at_tpr">
+<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.fpr_at_tpr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fpr_at_tpr</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute FPR@XTPR for OOD detection.</span>
+
+<span class="sd">    This metric measures the false positive rate (FPR) at a given true positive</span>
+<span class="sd">    rate (TPR) target. Here we treat OOD samples as the positive class.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_distribution: numpy.ndarray, scores for in-distribution samples</span>
+<span class="sd">        out_distribution: numpy.ndarray, scores for out-of-distribution samples</span>
+<span class="sd">        tpr_target: target TPR value in [0, 1], e.g. 0.95</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        fpr_at_target: float, FPR at the first threshold where TPR &gt;= tpr_target</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        - Assumes that larger scores correspond to the positive class</span>
+<span class="sd">          (out-of-distribution).</span>
+<span class="sd">        - If tpr_target cannot be reached, a ValueError is raised.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">tpr_target</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;tpr_target must be in the interval (0, 1], got </span><span class="si">{</span><span class="n">tpr_target</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
+    <span class="c1"># 0 = in-distribution, 1 = out-of-distribution (positive class)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">)))</span>
+    <span class="p">)</span>
+
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+
+    <span class="c1"># indices where TPR is at least the target</span>
+    <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">tpr_target</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Could not achieve TPR &gt;= </span><span class="si">{</span><span class="n">tpr_target</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> with given scores.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">first_idx</span> <span class="o">=</span> <span class="n">idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">fpr_at_target</span> <span class="o">=</span> <span class="n">fpr</span><span class="p">[</span><span class="n">first_idx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">fpr_at_target</span><span class="p">)</span></div>
+
 </pre></div>
         </article>
       </div>

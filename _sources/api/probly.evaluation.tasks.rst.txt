@@ -8,6 +8,7 @@ probly.evaluation.tasks
 
    .. autosummary::
    
+      fpr_at_tpr
       out_of_distribution_detection
       selective_prediction
    
