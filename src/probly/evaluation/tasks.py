@@ -75,8 +75,9 @@ def out_of_distribution_detection_aupr(in_distribution: np.ndarray, out_distribu
     labels = np.concatenate((np.zeros(len(in_distribution)), np.ones(len(out_distribution))))
     aupr = sm.average_precision_score(labels, preds)
     return float(aupr)
-  
-def fpr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_target: float = 0.95,) -> float:
+
+
+def fpr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_target: float = 0.95) -> float:
     """Compute FPR@XTPR for OOD detection.
 
     This metric measures the false positive rate (FPR) at a given true positive
@@ -102,7 +103,7 @@ def fpr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_ta
     scores = np.concatenate((in_distribution, out_distribution))
     # 0 = in-distribution, 1 = out-of-distribution (positive class)
     labels = np.concatenate(
-        (np.zeros(len(in_distribution)), np.ones(len(out_distribution)))
+        (np.zeros(len(in_distribution)), np.ones(len(out_distribution))),
     )
 
     fpr, tpr, thresholds = sm.roc_curve(labels, scores)
@@ -116,3 +117,50 @@ def fpr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_ta
     first_idx = idxs[0]
     fpr_at_target = fpr[first_idx]
     return float(fpr_at_target)
+
+
+def tnr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_target: float = 0.95) -> float:
+    """Compute TNR@XTPR for OOD detection.
+
+    This metric measures the true negative rate (TNR, also called specificity)
+    at a given true positive rate (TPR) target. TNR = 1 - FPR.
+
+    Args:
+        in_distribution: numpy.ndarray, scores for in-distribution samples
+        out_distribution: numpy.ndarray, scores for out-of-distribution samples
+        tpr_target: target TPR value in [0, 1], e.g. 0.95
+
+    Returns:
+        tnr_at_target: float, TNR at the first threshold where TPR >= tpr_target
+    """
+    fpr = fpr_at_tpr(in_distribution, out_distribution, tpr_target)
+    return 1.0 - fpr
+
+
+def detection_error(in_distribution: np.ndarray, out_distribution: np.ndarray) -> float:
+    """Compute the detection error for OOD detection.
+
+    Detection error is defined as the minimum misclassification probability
+    over all possible thresholds:
+        DE = min_{t} 0.5 * (FPR(t) + FNR(t))
+    where FNR(t) = 1 - TPR(t).
+
+    This is equivalent to the minimum of (FPR + FNR)/2 over all thresholds.
+
+    Args:
+        in_distribution: numpy.ndarray, scores for in-distribution samples
+        out_distribution: numpy.ndarray, scores for out-of-distribution samples
+
+    Returns:
+        detection_error: float, minimum detection error
+    """
+    scores = np.concatenate((in_distribution, out_distribution))
+    labels = np.concatenate((np.zeros(len(in_distribution)), np.ones(len(out_distribution))))
+    
+    fpr, tpr, _ = sm.roc_curve(labels, scores)
+    fnr = 1 - tpr
+    
+    # Compute detection error for each threshold
+    detection_errors = 0.5 * (fpr + fnr)
+    
+    return float(np.min(detection_errors))
