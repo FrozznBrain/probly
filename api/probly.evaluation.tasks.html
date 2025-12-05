@@ -232,7 +232,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="probly.layers.flax.html">probly.layers.flax</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.layers.torch.html">probly.layers.torch</a></li>
 </ul>
 </li>
@@ -373,7 +372,7 @@
 <td><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_aupr" title="probly.evaluation.tasks.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
-<td><p>Perform out-of-distribution detection using AUPR (Area Under the Precision–Recall Curve).</p></td>
+<td><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.tasks.selective_prediction" title="probly.evaluation.tasks.selective_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selective_prediction</span></code></a>(criterion, losses[, n_bins])</p></td>
 <td><p>Selective prediction downstream task for evaluation.</p></td>
@@ -440,7 +439,7 @@ rate (TPR) target. Here we treat OOD samples as the positive class.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="probly.evaluation.tasks.out_of_distribution_detection_aupr">
 <span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_aupr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#out_of_distribution_detection_aupr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.out_of_distribution_detection_aupr" title="Link to this definition">¶</a></dt>
-<dd><p>Perform out-of-distribution detection using AUPR (Area Under the Precision–Recall Curve).</p>
+<dd><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p>
 <p>This metric evaluates how well the model distinguishes between in- and out-of-distribution samples,
 focusing more on positive class (OOD) precision and recall.</p>
 <dl class="field-list simple">

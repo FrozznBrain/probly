@@ -231,7 +231,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/probly.layers.flax.html">probly.layers.flax</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/probly.layers.torch.html">probly.layers.torch</a></li>
 </ul>
 </li>
@@ -374,14 +373,16 @@
 <span class="n">P</span> <span class="o">=</span> <span class="n">GlobalVariable</span><span class="p">[</span><span class="nb">float</span><span class="p">](</span>
     <span class="s2">&quot;P&quot;</span><span class="p">,</span>
     <span class="s2">&quot;The probability of dropconnect.&quot;</span><span class="p">,</span>
-    <span class="mf">0.25</span>
+    <span class="mf">0.25</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">dropconnect_traverser</span> <span class="o">=</span> <span class="n">lazydispatch_traverser</span><span class="p">[</span><span class="nb">object</span><span class="p">](</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;dropconnect_traverser&quot;</span><span class="p">)</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">LazyType</span><span class="p">,</span> <span class="n">traverser</span><span class="p">:</span> <span class="n">RegisteredLooseTraverser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Register a class to be replaced by DropConnect layers.&quot;&quot;&quot;</span>
     <span class="n">dropconnect_traverser</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span> <span class="n">traverser</span><span class="o">=</span><span class="n">traverser</span><span class="p">,</span> <span class="n">skip_if</span><span class="o">=</span><span class="n">is_first_layer</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">P</span><span class="p">})</span>
+
 
 <div class="viewcode-block" id="dropconnect">
 <a class="viewcode-back" href="../../../../api/probly.transformation.dropconnect.html#probly.transformation.dropconnect">[docs]</a>
