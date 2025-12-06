@@ -11,4 +11,5 @@
    :recursive:
 
    metrics
+   ood_metrics
    tasks

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.representation.sampling.jax_sample" href="probly.representation.sampling.jax_sample.html" /><link rel="prev" title="probly.representation.sampling" href="probly.representation.sampling.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.predictor" href="probly.predictor.html" /><link rel="prev" title="probly.plot.credal" href="probly.plot.credal.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.representation.sampling.flax_sampler - probly 0.3.1 documentation</title>
+        <title>probly.plot.ood - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -236,9 +236,9 @@
 <li class="toctree-l3"><a class="reference internal" href="probly.layers.torch.html">probly.layers.torch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="probly.plot.html">probly.plot</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of probly.plot</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="probly.plot.html">probly.plot</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of probly.plot</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.plot.credal.html">probly.plot.credal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="probly.plot.ood.html">probly.plot.ood</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.plot.ood</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="probly.predictor.html">probly.predictor</a></li>
@@ -247,7 +247,7 @@
 <li class="toctree-l3"><a class="reference internal" href="probly.quantification.regression.html">probly.quantification.regression</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="probly.representation.html">probly.representation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of probly.representation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="probly.representation.html">probly.representation</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of probly.representation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="probly.representation.credal_set.html">probly.representation.credal_set</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of probly.representation.credal_set</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="probly.representation.credal_set.credal_set.html">probly.representation.credal_set.credal_set</a></li>
 <li class="toctree-l4"><a class="reference internal" href="probly.representation.credal_set.jax.html">probly.representation.credal_set.jax</a></li>
@@ -256,8 +256,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="probly.representation.distribution.html">probly.representation.distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.representation.representer.html">probly.representation.representer</a></li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="probly.representation.sampling.html">probly.representation.sampling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of probly.representation.sampling</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">probly.representation.sampling.flax_sampler</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="probly.representation.sampling.html">probly.representation.sampling</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of probly.representation.sampling</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="probly.representation.sampling.flax_sampler.html">probly.representation.sampling.flax_sampler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="probly.representation.sampling.jax_sample.html">probly.representation.sampling.jax_sample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="probly.representation.sampling.sample.html">probly.representation.sampling.sample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="probly.representation.sampling.sampler.html">probly.representation.sampling.sampler</a></li>
@@ -360,29 +360,78 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-probly.representation.sampling.flax_sampler">
-<span id="probly-representation-sampling-flax-sampler"></span><h1>probly.representation.sampling.flax_sampler<a class="headerlink" href="#module-probly.representation.sampling.flax_sampler" title="Link to this heading">¶</a></h1>
-<p>Sampling preparation for flax.</p>
+          <section id="module-probly.plot.ood">
+<span id="probly-plot-ood"></span><h1>probly.plot.ood<a class="headerlink" href="#module-probly.plot.ood" title="Link to this heading">¶</a></h1>
+<p>Visualization Modules for OOD Evaluation in Probly.</p>
 <p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.representation.sampling.flax_sampler.register_forced_train_mode" title="probly.representation.sampling.flax_sampler.register_forced_train_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_forced_train_mode</span></code></a>(cls)</p></td>
-<td><p>Register a class to be forced into train mode during sampling.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.plot.ood.plot_histogram" title="probly.plot.ood.plot_histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_histogram</span></code></a>(id_scores, ood_scores[, ax, ...])</p></td>
+<td><p>Plot histogram.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.plot.ood.plot_pr_curve" title="probly.plot.ood.plot_pr_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_pr_curve</span></code></a>(precision, recall, aupr[, ax])</p></td>
+<td><p>Plots precision and recall curve.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.plot.ood.plot_roc_curve" title="probly.plot.ood.plot_roc_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_roc_curve</span></code></a>(fpr, tpr, roc_auc[, ax])</p></td>
+<td><p>Plot roc_curve.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.representation.sampling.flax_sampler.register_forced_train_mode">
-<span class="sig-prename descclassname"><span class="pre">probly.representation.sampling.flax_sampler.</span></span><span class="sig-name descname"><span class="pre">register_forced_train_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/representation/sampling/flax_sampler.html#register_forced_train_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.representation.sampling.flax_sampler.register_forced_train_mode" title="Link to this definition">¶</a></dt>
-<dd><p>Register a class to be forced into train mode during sampling.</p>
+<dt class="sig sig-object py" id="probly.plot.ood.plot_histogram">
+<span class="sig-prename descclassname"><span class="pre">probly.plot.ood.</span></span><span class="sig-name descname"><span class="pre">plot_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ood_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Confidence</span> <span class="pre">Score</span> <span class="pre">Distribution'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/plot/ood.html#plot_histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.plot.ood.plot_histogram" title="Link to this definition">¶</a></dt>
+<dd><p>Plot histogram.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code></a></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>cls</strong> (<em>LazyType</em>)</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>id_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>ood_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.10.7)"><em>Axes</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.plot.ood.plot_pr_curve">
+<span class="sig-prename descclassname"><span class="pre">probly.plot.ood.</span></span><span class="sig-name descname"><span class="pre">plot_pr_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">precision</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aupr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/plot/ood.html#plot_pr_curve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.plot.ood.plot_pr_curve" title="Link to this definition">¶</a></dt>
+<dd><p>Plots precision and recall curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>precision</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>recall</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>aupr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.10.7)"><em>Axes</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.plot.ood.plot_roc_curve">
+<span class="sig-prename descclassname"><span class="pre">probly.plot.ood.</span></span><span class="sig-name descname"><span class="pre">plot_roc_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roc_auc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/plot/ood.html#plot_roc_curve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.plot.ood.plot_roc_curve" title="Link to this definition">¶</a></dt>
+<dd><p>Plot roc_curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>fpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>tpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>roc_auc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.10.7)"><em>Axes</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -394,23 +443,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="probly.representation.sampling.jax_sample.html">
+          <a class="next-page" href="probly.predictor.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">probly.representation.sampling.jax_sample</div>
+                <div class="title">probly.predictor</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="probly.representation.sampling.html">
+          <a class="prev-page" href="probly.plot.credal.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">probly.representation.sampling</div>
+                <div class="title">probly.plot.credal</div>
                 
               </div>
             </a>
@@ -444,8 +493,10 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">probly.representation.sampling.flax_sampler</a><ul>
-<li><a class="reference internal" href="#probly.representation.sampling.flax_sampler.register_forced_train_mode"><code class="docutils literal notranslate"><span class="pre">register_forced_train_mode()</span></code></a></li>
+<li><a class="reference internal" href="#">probly.plot.ood</a><ul>
+<li><a class="reference internal" href="#probly.plot.ood.plot_histogram"><code class="docutils literal notranslate"><span class="pre">plot_histogram()</span></code></a></li>
+<li><a class="reference internal" href="#probly.plot.ood.plot_pr_curve"><code class="docutils literal notranslate"><span class="pre">plot_pr_curve()</span></code></a></li>
+<li><a class="reference internal" href="#probly.plot.ood.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
 </ul>
 </li>
 </ul>
