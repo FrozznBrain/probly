@@ -11,6 +11,5 @@ probly.evaluation.tasks
       fpr_at_tpr
       out_of_distribution_detection
       out_of_distribution_detection_aupr
-      out_of_distribution_detection_fnr_at_95
       selective_prediction
    
