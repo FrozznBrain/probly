@@ -106,7 +106,7 @@ def fpr_at_tpr(in_distribution: np.ndarray, out_distribution: np.ndarray, tpr_ta
         (np.zeros(len(in_distribution)), np.ones(len(out_distribution))),
     )
 
-    fpr, tpr, thresholds = sm.roc_curve(labels, scores)
+    fpr, tpr, _thresholds = sm.roc_curve(labels, scores)
 
     # indices where TPR is at least the target
     idxs = np.where(tpr >= tpr_target)[0]
@@ -135,7 +135,7 @@ def out_of_distribution_detection_fnr_at_95(in_distribution: np.ndarray, out_dis
     preds = np.concatenate((in_distribution, out_distribution))
     labels = np.concatenate((np.zeros(len(in_distribution)), np.ones(len(out_distribution))))
 
-    fpr, tpr, thresholds = sm.roc_curve(labels, preds)
+    _fpr, tpr, thresholds = sm.roc_curve(labels, preds)
     target_tpr = 0.95
 
     idx = np.where(tpr >= target_tpr)[0][0]
@@ -146,4 +146,3 @@ def out_of_distribution_detection_fnr_at_95(in_distribution: np.ndarray, out_dis
     preds_pos = np.sum(labels == 1)
 
     return float(fn / preds_pos)
-

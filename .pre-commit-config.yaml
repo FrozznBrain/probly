@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-json
       - id: check-yaml
@@ -10,7 +10,7 @@ repos:
       - id: mixed-line-ending
       - id: check-merge-conflict
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.0
+    rev: v0.14.8
     hooks:
       - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix, --no-cache]
@@ -18,7 +18,7 @@ repos:
         args: [--verbose]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
+    rev: v1.19.0
     hooks:
       - id: mypy
         exclude: docs
