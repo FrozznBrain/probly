@@ -1,0 +1,13 @@
+probly.evaluation.ood
+=====================
+
+.. automodule:: probly.evaluation.ood
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      evaluate_ood
+      parse_dynamic_metric
+   

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.train.calibration.torch" href="probly.train.calibration.torch.html" /><link rel="prev" title="probly.train.bayesian.torch" href="probly.train.bayesian.torch.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.ood_metrics" href="probly.evaluation.ood_metrics.html" /><link rel="prev" title="probly.evaluation.metrics" href="probly.evaluation.metrics.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.train.calibration - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.ood - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -181,7 +181,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -226,9 +226,9 @@
 <li class="toctree-l3"><a class="reference internal" href="probly.datasets.torch.html">probly.datasets.torch</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="probly.evaluation.ood.html">probly.evaluation.ood</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 </ul>
@@ -268,12 +268,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="probly.train.html">probly.train</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of probly.train</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="probly.train.html">probly.train</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of probly.train</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="probly.train.bayesian.html">probly.train.bayesian</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of probly.train.bayesian</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="probly.train.bayesian.torch.html">probly.train.bayesian.torch</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">probly.train.calibration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of probly.train.calibration</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="probly.train.calibration.html">probly.train.calibration</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of probly.train.calibration</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="probly.train.calibration.torch.html">probly.train.calibration.torch</a></li>
 </ul>
 </li>
@@ -355,25 +355,91 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-probly.train.calibration">
-<span id="probly-train-calibration"></span><h1>probly.train.calibration<a class="headerlink" href="#module-probly.train.calibration" title="Link to this heading">¶</a></h1>
-<p>Train functionality for calibration methods.</p>
-<p class="rubric">Modules</p>
+          <section id="module-probly.evaluation.ood">
+<span id="probly-evaluation-ood"></span><h1>probly.evaluation.ood<a class="headerlink" href="#module-probly.evaluation.ood" title="Link to this heading">¶</a></h1>
+<p>Unified OOD evaluation API for probly.</p>
+<p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="probly.train.calibration.torch.html#module-probly.train.calibration.torch" title="probly.train.calibration.torch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch</span></code></a></p></td>
-<td><p>Collection of torch calibration training functions.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood" title="probly.evaluation.ood.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
+<td><p>Unified OOD evaluation API.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric" title="probly.evaluation.ood.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
+<td><p>Parse dynamic metric specification.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.evaluation.ood.evaluate_ood">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.evaluate_ood" title="Link to this definition">¶</a></dt>
+<dd><p>Unified OOD evaluation API.</p>
+<p>Provides backward compatibility while supporting multiple metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>metrics</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>in_distribution<span class="classifier">array-like</span></dt><dd><p>Scores for in-distribution samples.</p>
+</dd>
+<dt>out_distribution<span class="classifier">array-like</span></dt><dd><p>Scores for out-of-distribution samples.</p>
+</dd>
+<dt>metrics<span class="classifier">str, list of str, or None, optional</span></dt><dd><ul class="simple">
+<li><p>None or “auroc”: Returns single AUROC value (backward compatible)</p></li>
+<li><p>“all”: Returns dict with all available metrics</p></li>
+<li><p>list: Returns dict with specified metrics</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<p>:
+float or dict</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If metrics is None or “auroc”: returns single AUROC float</p></li>
+<li><p>Otherwise: returns dict with metric names as keys</p></li>
+</ul>
+</div></blockquote>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.evaluation.ood.parse_dynamic_metric">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">parse_dynamic_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#parse_dynamic_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.parse_dynamic_metric" title="Link to this definition">¶</a></dt>
+<dd><p>Parse dynamic metric specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p><a class="reference external" href="mailto:fpr&#37;&#52;&#48;0&#46;8">fpr<span>&#64;</span>0<span>&#46;</span>8</a>
+fnr&#64;95%
+<a class="reference external" href="mailto:tnr&#37;&#52;&#48;0&#46;99">tnr<span>&#64;</span>0<span>&#46;</span>99</a></p>
+</dd></dl>
+
 </section>
 
         </article>
@@ -381,23 +447,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="probly.train.calibration.torch.html">
+          <a class="next-page" href="probly.evaluation.ood_metrics.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">probly.train.calibration.torch</div>
+                <div class="title">probly.evaluation.ood_metrics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="probly.train.bayesian.torch.html">
+          <a class="prev-page" href="probly.evaluation.metrics.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">probly.train.bayesian.torch</div>
+                <div class="title">probly.evaluation.metrics</div>
                 
               </div>
             </a>
@@ -419,8 +485,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">probly.evaluation.ood</a><ul>
+<li><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
