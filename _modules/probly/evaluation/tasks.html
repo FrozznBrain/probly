@@ -227,7 +227,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood.html">probly.evaluation.ood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 </ul>
@@ -404,9 +404,9 @@
 
 
 
-<div class="viewcode-block" id="out_of_distribution_detection">
-<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="out_of_distribution_detection_auroc">
+<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_auroc">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_auroc</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using prediction functionals from id and ood data.</span>
 
 <span class="sd">    This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</span>
@@ -447,13 +447,16 @@
 
 
 
-<div class="viewcode-block" id="fpr_at_tpr">
-<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.fpr_at_tpr">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">fpr_at_tpr</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute FPR@XTPR for OOD detection.</span>
+<div class="viewcode-block" id="out_of_distribution_detection_fpr_at_x_tpr">
+<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fpr_at_x_tpr</span><span class="p">(</span>
+    <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</span>
 
-<span class="sd">    This metric measures the false positive rate (FPR) at a given true positive</span>
-<span class="sd">    rate (TPR) target. Here we treat OOD samples as the positive class.</span>
+<span class="sd">    This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        in_distribution: numpy.ndarray, scores for in-distribution samples</span>
@@ -472,15 +475,13 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;tpr_target must be in the interval (0, 1], got </span><span class="si">{</span><span class="n">tpr_target</span><span class="si">}</span><span class="s2">.&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
-    <span class="c1"># 0 = in-distribution, 1 = out-of-distribution (positive class)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
         <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">))),</span>
     <span class="p">)</span>
 
-    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
 
-    <span class="c1"># indices where TPR is at least the target</span>
     <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">tpr_target</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Could not achieve TPR &gt;= </span><span class="si">{</span><span class="n">tpr_target</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> with given scores.&quot;</span>
@@ -495,22 +496,21 @@
 <div class="viewcode-block" id="out_of_distribution_detection_fnr_at_95">
 <a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_95">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fnr_at_95</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using prediction functionals from id and ood data.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using false negative rate at 0.95 true positive rate.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        in_distribution: in-distribution prediction functionals</span>
 <span class="sd">        out_distribution: out-of-distribution prediction functionals</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        fnr@95: float</span>
+<span class="sd">        fnr@95: float, FNR at the first threshold where TPR &gt;= 0.95</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># fully reversed: all OOD &lt; all ID → total failure → FNR=1</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
 
     <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">))))</span>
 
-    <span class="n">_fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
     <span class="n">target_tpr</span> <span class="o">=</span> <span class="mf">0.95</span>
 
     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">target_tpr</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -521,6 +521,64 @@
     <span class="n">preds_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">fn</span> <span class="o">/</span> <span class="n">preds_pos</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="out_of_distribution_detection_fnr_at_x_tpr">
+<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fnr_at_x_tpr</span><span class="p">(</span>
+    <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using false negative rate at user given true positive rate.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_distribution: in-distribution prediction functionals</span>
+<span class="sd">        out_distribution: out-of-distribution prediction functionals</span>
+<span class="sd">        tpr_target: target TPR value in [0, 1], e.g. 0.95</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        fnr@X: float, FNR at the first threshold where TPR &gt;= tpr_target</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">))))</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">tpr_target</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">tpr</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">else</span> <span class="mf">1.0</span></div>
+
+
+
+<div class="viewcode-block" id="out_of_distribution_detection_fpr_at_95_tpr">
+<a class="viewcode-back" href="../../../api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_fpr_at_95_tpr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fpr_at_95_tpr</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using prediction functionals from id and ood data.</span>
+
+<span class="sd">    This metric measures the false positive rate (FPR) at a given true positive</span>
+<span class="sd">    rate (TPR) target. Here we treat OOD samples as the positive class.</span>
+
+<span class="sd">    This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        in_distribution: in-distribution prediction functionals</span>
+<span class="sd">        out_distribution: out-of-distribution prediction functionals</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        fpr@95tpr: float, false positive rate where true positive rate &gt;= 95%</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_distribution</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">))</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">))))</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+
+    <span class="n">target_tpr</span> <span class="o">=</span> <span class="mf">0.95</span>
+
+    <span class="n">idxs_at_target_tpr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">target_tpr</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs_at_target_tpr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Could not achieve TPR &gt;= </span><span class="si">{</span><span class="n">target_tpr</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> with given scores.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">fpr_idx</span> <span class="o">=</span> <span class="n">idxs_at_target_tpr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">fpr</span><span class="p">[</span><span class="n">fpr_idx</span><span class="p">])</span></div>
 
 </pre></div>
         </article>

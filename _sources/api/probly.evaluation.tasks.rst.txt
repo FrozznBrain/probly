@@ -8,9 +8,11 @@ probly.evaluation.tasks
 
    .. autosummary::
    
-      fpr_at_tpr
-      out_of_distribution_detection
       out_of_distribution_detection_aupr
+      out_of_distribution_detection_auroc
       out_of_distribution_detection_fnr_at_95
+      out_of_distribution_detection_fnr_at_x_tpr
+      out_of_distribution_detection_fpr_at_95_tpr
+      out_of_distribution_detection_fpr_at_x_tpr
       selective_prediction
    

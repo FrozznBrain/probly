@@ -1,7 +1,7 @@
-probly.evaluation.ood
-=====================
+probly.evaluation.ood\_api
+==========================
 
-.. automodule:: probly.evaluation.ood
+.. automodule:: probly.evaluation.ood_api
 
    
    .. rubric:: Functions

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.ood_api - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -227,7 +227,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood.html">probly.evaluation.ood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 </ul>
@@ -358,7 +358,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for probly.evaluation.ood</h1><div class="highlight"><pre>
+          <h1>Source code for probly.evaluation.ood_api</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Unified OOD evaluation API for probly.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -366,54 +366,33 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">probly.evaluation.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">fpr_at_tpr</span><span class="p">,</span>
-    <span class="n">out_of_distribution_detection</span><span class="p">,</span>
     <span class="n">out_of_distribution_detection_aupr</span><span class="p">,</span>
+    <span class="n">out_of_distribution_detection_auroc</span><span class="p">,</span>
+    <span class="n">out_of_distribution_detection_fnr_at_95</span><span class="p">,</span>
+    <span class="n">out_of_distribution_detection_fnr_at_x_tpr</span><span class="p">,</span>
+    <span class="n">out_of_distribution_detection_fpr_at_95_tpr</span><span class="p">,</span>
+    <span class="n">out_of_distribution_detection_fpr_at_x_tpr</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 
 
-<span class="c1"># ------------------------------------------------------------</span>
-<span class="c1"># Registry for static predefined metrics</span>
-<span class="c1"># ------------------------------------------------------------</span>
 <span class="n">STATIC_METRICS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;auroc&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection</span><span class="p">,</span>
+    <span class="s2">&quot;auroc&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_auroc</span><span class="p">,</span>
     <span class="s2">&quot;aupr&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_aupr</span><span class="p">,</span>
-    <span class="s2">&quot;fpr@95&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">fpr_at_tpr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span>
+    <span class="s2">&quot;fnr@95&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fnr_at_95</span><span class="p">,</span>
+    <span class="s2">&quot;fpr@95tpr&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fpr_at_95_tpr</span><span class="p">,</span>
 <span class="p">}</span>
-
-
-<span class="c1"># ------------------------------------------------------------</span>
-<span class="c1"># Dynamic metric dispatch table</span>
-<span class="c1"># ------------------------------------------------------------</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_compute_fnr_at_tpr</span><span class="p">(</span>
-    <span class="n">in_s</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">out_s</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute FNR at specified TPR threshold.&quot;&quot;&quot;</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">in_s</span><span class="p">,</span> <span class="n">out_s</span><span class="p">))</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">in_s</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out_s</span><span class="p">)))</span>
-    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="n">tpr_target</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">tpr</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="k">else</span> <span class="mf">1.0</span>
-
 
 <span class="n">DYNAMIC_METRICS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;fpr&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">:</span> <span class="n">fpr_at_tpr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">),</span>
-    <span class="s2">&quot;tnr&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">fpr_at_tpr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">),</span>
-    <span class="s2">&quot;fnr&quot;</span><span class="p">:</span> <span class="n">_compute_fnr_at_tpr</span><span class="p">,</span>
+    <span class="s2">&quot;fpr&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fpr_at_x_tpr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">),</span>
+    <span class="s2">&quot;fnr&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fnr_at_x_tpr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thr</span><span class="p">),</span>
 <span class="p">}</span>
 
 
-<span class="c1"># ------------------------------------------------------------</span>
-<span class="c1"># Utility: parse dynamic metric names</span>
-<span class="c1"># ------------------------------------------------------------</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate threshold is in (0, 1].&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">threshold</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
@@ -429,14 +408,13 @@
 
 
 <div class="viewcode-block" id="parse_dynamic_metric">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.parse_dynamic_metric">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.parse_dynamic_metric">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_dynamic_metric</span><span class="p">(</span><span class="n">spec</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse dynamic metric specification.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        fpr@0.8</span>
 <span class="sd">        fnr@95%</span>
-<span class="sd">        tnr@0.99</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">base</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
@@ -455,11 +433,8 @@
 
 
 
-<span class="c1"># ------------------------------------------------------------</span>
-<span class="c1"># Unified API</span>
-<span class="c1"># ------------------------------------------------------------</span>
 <div class="viewcode-block" id="evaluate_ood">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.evaluate_ood">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.evaluate_ood">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_ood</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
@@ -470,18 +445,16 @@
 <span class="sd">    Provides backward compatibility while supporting multiple metrics.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">    -----------</span>
-<span class="sd">    in_distribution : array-like</span>
+<span class="sd">    in_distribution :</span>
 <span class="sd">        Scores for in-distribution samples.</span>
-<span class="sd">    out_distribution : array-like</span>
+<span class="sd">    out_distribution :</span>
 <span class="sd">        Scores for out-of-distribution samples.</span>
-<span class="sd">    metrics : str, list of str, or None, optional</span>
+<span class="sd">    metrics : str, list of str, or None</span>
 <span class="sd">        - None or &quot;auroc&quot;: Returns single AUROC value (backward compatible)</span>
 <span class="sd">        - &quot;all&quot;: Returns dict with all available metrics</span>
 <span class="sd">        - list: Returns dict with specified metrics</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">    --------</span>
 <span class="sd">    float or dict</span>
 <span class="sd">        - If metrics is None or &quot;auroc&quot;: returns single AUROC float</span>
 <span class="sd">        - Otherwise: returns dict with metric names as keys</span>
@@ -489,11 +462,9 @@
     <span class="n">in_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)</span>
     <span class="n">out_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">)</span>
 
-    <span class="c1"># backward compatibility -&gt; single AUROC</span>
     <span class="k">if</span> <span class="n">metrics</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;auroc&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">STATIC_METRICS</span><span class="p">[</span><span class="s2">&quot;auroc&quot;</span><span class="p">](</span><span class="n">in_s</span><span class="p">,</span> <span class="n">out_s</span><span class="p">)</span>
 
-    <span class="c1"># resolve metric list</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">metric_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">STATIC_METRICS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="n">metrics</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>

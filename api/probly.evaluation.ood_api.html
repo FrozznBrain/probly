@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.ood_metrics" href="probly.evaluation.ood_metrics.html" /><link rel="prev" title="probly.evaluation.metrics" href="probly.evaluation.metrics.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.ood_api - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -228,7 +228,7 @@
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood_api</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 </ul>
@@ -361,25 +361,25 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-probly.evaluation.ood">
-<span id="probly-evaluation-ood"></span><h1>probly.evaluation.ood<a class="headerlink" href="#module-probly.evaluation.ood" title="Link to this heading">¶</a></h1>
+          <section id="module-probly.evaluation.ood_api">
+<span id="probly-evaluation-ood-api"></span><h1>probly.evaluation.ood_api<a class="headerlink" href="#module-probly.evaluation.ood_api" title="Link to this heading">¶</a></h1>
 <p>Unified OOD evaluation API for probly.</p>
 <p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood" title="probly.evaluation.ood.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood" title="probly.evaluation.ood_api.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
 <td><p>Unified OOD evaluation API.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric" title="probly.evaluation.ood.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="probly.evaluation.ood_api.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
 <td><p>Parse dynamic metric specification.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood.evaluate_ood">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.evaluate_ood" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood_api.evaluate_ood">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.evaluate_ood" title="Link to this definition">¶</a></dt>
 <dd><p>Unified OOD evaluation API.</p>
 <p>Provides backward compatibility while supporting multiple metrics.</p>
 <dl class="field-list simple">
@@ -394,24 +394,22 @@
 </ul>
 </dd>
 </dl>
-<section id="parameters">
-<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<p>Parameters:
+in_distribution :</p>
+<blockquote>
+<div><p>Scores for in-distribution samples.</p>
+</div></blockquote>
 <dl class="simple">
-<dt>in_distribution<span class="classifier">array-like</span></dt><dd><p>Scores for in-distribution samples.</p>
+<dt>out_distribution :</dt><dd><p>Scores for out-of-distribution samples.</p>
 </dd>
-<dt>out_distribution<span class="classifier">array-like</span></dt><dd><p>Scores for out-of-distribution samples.</p>
-</dd>
-<dt>metrics<span class="classifier">str, list of str, or None, optional</span></dt><dd><ul class="simple">
+<dt>metrics<span class="classifier">str, list of str, or None</span></dt><dd><ul class="simple">
 <li><p>None or “auroc”: Returns single AUROC value (backward compatible)</p></li>
 <li><p>“all”: Returns dict with all available metrics</p></li>
 <li><p>list: Returns dict with specified metrics</p></li>
 </ul>
 </dd>
 </dl>
-</section>
-<section id="returns">
-<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
-<p>:
+<p>Returns:
 float or dict</p>
 <blockquote>
 <div><ul class="simple">
@@ -419,12 +417,11 @@ float or dict</p>
 <li><p>Otherwise: returns dict with metric names as keys</p></li>
 </ul>
 </div></blockquote>
-</section>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood.parse_dynamic_metric">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">parse_dynamic_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#parse_dynamic_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.parse_dynamic_metric" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood_api.parse_dynamic_metric">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">parse_dynamic_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#parse_dynamic_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="Link to this definition">¶</a></dt>
 <dd><p>Parse dynamic metric specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -436,8 +433,7 @@ float or dict</p>
 </dl>
 <p class="rubric">Examples</p>
 <p><a class="reference external" href="mailto:fpr&#37;&#52;&#48;0&#46;8">fpr<span>&#64;</span>0<span>&#46;</span>8</a>
-fnr&#64;95%
-<a class="reference external" href="mailto:tnr&#37;&#52;&#48;0&#46;99">tnr<span>&#64;</span>0<span>&#46;</span>99</a></p>
+fnr&#64;95%</p>
 </dd></dl>
 
 </section>
@@ -497,9 +493,9 @@ fnr&#64;95%
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">probly.evaluation.ood</a><ul>
-<li><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
+<li><a class="reference internal" href="#">probly.evaluation.ood_api</a><ul>
+<li><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
 </ul>
 </li>
 </ul>
