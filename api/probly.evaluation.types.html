@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.tasks" href="probly.evaluation.tasks.html" /><link rel="prev" title="probly.evaluation.ood_api" href="probly.evaluation.ood_api.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.layers" href="probly.layers.html" /><link rel="prev" title="probly.evaluation.tasks" href="probly.evaluation.tasks.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood_metrics - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.types - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -229,8 +229,8 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.types</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -361,123 +361,85 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-probly.evaluation.ood_metrics">
-<span id="probly-evaluation-ood-metrics"></span><h1>probly.evaluation.ood_metrics<a class="headerlink" href="#module-probly.evaluation.ood_metrics" title="Link to this heading">¶</a></h1>
-<p>Utility functions for evaluating OOD performance.</p>
-<p class="rubric">Functions</p>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_metrics.evaluate_ood_performance" title="probly.evaluation.ood_metrics.evaluate_ood_performance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood_performance</span></code></a>(id_scores, ood_scores)</p></td>
-<td><p>Compute OOD metrics based on ID and OOD score arrays.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+          <section id="module-probly.evaluation.types">
+<span id="probly-evaluation-types"></span><h1>probly.evaluation.types<a class="headerlink" href="#module-probly.evaluation.types" title="Link to this heading">¶</a></h1>
+<p>Data structures for OOD evaluation.</p>
 <p class="rubric">Classes</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult" title="probly.evaluation.ood_metrics.OodEvaluationResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a>(auroc, fpr, tpr, labels, ...)</p></td>
-<td><p>Container holding OOD evaluation metrics.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult" title="probly.evaluation.types.OodEvaluationResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a>(auroc, aupr[, fpr95, ...])</p></td>
+<td><p>Standardized container for OOD evaluation results and curve data.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py class">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_metrics.</span></span><span class="sig-name descname"><span class="pre">OodEvaluationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auroc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aupr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recall</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_metrics.html#OodEvaluationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">probly.evaluation.types.</span></span><span class="sig-name descname"><span class="pre">OodEvaluationResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auroc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aupr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpr95</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ood_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/types.html#OodEvaluationResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Container holding OOD evaluation metrics.</p>
+<p>Standardized container for OOD evaluation results and curve data.</p>
+<p>Used to transfer data from the API calculation layer to the plotting layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>auroc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>fpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-<li><p><strong>tpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-<li><p><strong>labels</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-<li><p><strong>preds</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
 <li><p><strong>aupr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>precision</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-<li><p><strong>recall</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>fpr95</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>fpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>tpr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>precision</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>recall</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>id_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>ood_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.aupr">
-<span class="sig-name descname"><span class="pre">aupr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.aupr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.aupr">
+<span class="sig-name descname"><span class="pre">aupr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.aupr" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.auroc">
-<span class="sig-name descname"><span class="pre">auroc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.auroc" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.auroc">
+<span class="sig-name descname"><span class="pre">auroc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.auroc" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.fpr">
-<span class="sig-name descname"><span class="pre">fpr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.fpr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.fpr">
+<span class="sig-name descname"><span class="pre">fpr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.fpr" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.labels">
-<span class="sig-name descname"><span class="pre">labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.labels" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.fpr95">
+<span class="sig-name descname"><span class="pre">fpr95</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.fpr95" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.precision">
-<span class="sig-name descname"><span class="pre">precision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.precision" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.id_scores">
+<span class="sig-name descname"><span class="pre">id_scores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.id_scores" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.preds">
-<span class="sig-name descname"><span class="pre">preds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.preds" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.ood_scores">
+<span class="sig-name descname"><span class="pre">ood_scores</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.ood_scores" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.recall">
-<span class="sig-name descname"><span class="pre">recall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.recall" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.precision">
+<span class="sig-name descname"><span class="pre">precision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.precision" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.OodEvaluationResult.tpr">
-<span class="sig-name descname"><span class="pre">tpr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></em><a class="headerlink" href="#probly.evaluation.ood_metrics.OodEvaluationResult.tpr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.recall">
+<span class="sig-name descname"><span class="pre">recall</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.recall" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="probly.evaluation.types.OodEvaluationResult.tpr">
+<span class="sig-name descname"><span class="pre">tpr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#probly.evaluation.types.OodEvaluationResult.tpr" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_metrics.evaluate_ood_performance">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_metrics.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ood_scores</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_metrics.html#evaluate_ood_performance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_metrics.evaluate_ood_performance" title="Link to this definition">¶</a></dt>
-<dd><p>Compute OOD metrics based on ID and OOD score arrays.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult" title="probly.evaluation.ood_metrics.OodEvaluationResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>id_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-<li><p><strong>ood_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Logic:</dt><dd><p>Low score → OOD.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Confidence scores for in-distribution samples.</p></li>
-<li><p><strong>ood_scores</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Confidence scores for out-of-distribution samples.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An <cite>OodEvaluationResult</cite> containing AUROC, FPR, TPR, labels, and preds.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult" title="probly.evaluation.ood_metrics.OodEvaluationResult"><em>OodEvaluationResult</em></a></p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -487,23 +449,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="probly.evaluation.tasks.html">
+          <a class="next-page" href="probly.layers.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">probly.evaluation.tasks</div>
+                <div class="title">probly.layers</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="probly.evaluation.ood_api.html">
+          <a class="prev-page" href="probly.evaluation.tasks.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">probly.evaluation.ood_api</div>
+                <div class="title">probly.evaluation.tasks</div>
                 
               </div>
             </a>
@@ -537,19 +499,19 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">probly.evaluation.ood_metrics</a><ul>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a><ul>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.aupr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.aupr</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.auroc"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.auroc</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.fpr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.fpr</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.labels"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.labels</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.precision"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.precision</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.preds"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.preds</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.recall"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.recall</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.OodEvaluationResult.tpr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.tpr</span></code></a></li>
+<li><a class="reference internal" href="#">probly.evaluation.types</a><ul>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a><ul>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.aupr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.aupr</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.auroc"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.auroc</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.fpr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.fpr</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.fpr95"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.fpr95</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.id_scores"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.id_scores</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.ood_scores"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.ood_scores</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.precision"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.precision</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.recall"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.recall</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.types.OodEvaluationResult.tpr"><code class="docutils literal notranslate"><span class="pre">OodEvaluationResult.tpr</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#probly.evaluation.ood_metrics.evaluate_ood_performance"><code class="docutils literal notranslate"><span class="pre">evaluate_ood_performance()</span></code></a></li>
 </ul>
 </li>
 </ul>

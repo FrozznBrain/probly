@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood_metrics - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.types - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -228,8 +228,8 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -358,76 +358,41 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for probly.evaluation.ood_metrics</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Utility functions for evaluating OOD performance.&quot;&quot;&quot;</span>
+          <h1>Source code for probly.evaluation.types</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Data structures for OOD evaluation.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">auc</span><span class="p">,</span> <span class="n">average_precision_score</span><span class="p">,</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">roc_curve</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <div class="viewcode-block" id="OodEvaluationResult">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">OodEvaluationResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container holding OOD evaluation metrics.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Standardized container for OOD evaluation results and curve data.</span>
 
-    <span class="n">auroc</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">fpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">tpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">preds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">aupr</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">precision</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">recall</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span></div>
-
-
-
-<div class="viewcode-block" id="evaluate_ood_performance">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.evaluate_ood_performance">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_ood_performance</span><span class="p">(</span>
-    <span class="n">id_scores</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">ood_scores</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OodEvaluationResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute OOD metrics based on ID and OOD score arrays.</span>
-
-<span class="sd">    Logic:</span>
-<span class="sd">        Low score → OOD.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        id_scores: Confidence scores for in-distribution samples.</span>
-<span class="sd">        ood_scores: Confidence scores for out-of-distribution samples.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An `OodEvaluationResult` containing AUROC, FPR, TPR, labels, and preds.</span>
+<span class="sd">    Used to transfer data from the API calculation layer to the plotting layer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">id_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">id_scores</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">ood_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">ood_scores</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">id_scores</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ood_scores</span><span class="p">))])</span>
-    <span class="n">all_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">id_scores</span><span class="p">,</span> <span class="n">ood_scores</span><span class="p">])</span>
+    <span class="c1"># Scalar Metrics (for plot titles/legends)</span>
+    <span class="n">auroc</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">aupr</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">fpr95</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">preds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">all_scores</span>
+    <span class="c1"># Curve Vectors (required for plotting)</span>
+    <span class="n">fpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">tpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">recall</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
-    <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
-
-    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
-    <span class="n">aupr</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">OodEvaluationResult</span><span class="p">(</span>
-        <span class="n">auroc</span><span class="o">=</span><span class="n">roc_auc</span><span class="p">,</span>
-        <span class="n">fpr</span><span class="o">=</span><span class="n">fpr</span><span class="p">,</span>
-        <span class="n">tpr</span><span class="o">=</span><span class="n">tpr</span><span class="p">,</span>
-        <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-        <span class="n">preds</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span>
-        <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span>
-        <span class="n">recall</span><span class="o">=</span><span class="n">recall</span><span class="p">,</span>
-        <span class="n">aupr</span><span class="o">=</span><span class="n">aupr</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="c1"># Raw Scores (optional, for histograms)</span>
+    <span class="n">id_scores</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ood_scores</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 </pre></div>
         </article>

@@ -227,8 +227,8 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="api/probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="api/probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -400,9 +400,9 @@
           <li><a href="api/probly.representation.sampling.sample.html#probly.representation.sampling.sample.ArraySample">(class in probly.representation.sampling.sample)</a>
 </li>
         </ul></li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.aupr">aupr (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.aupr">aupr (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.auroc">auroc (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.auroc">auroc (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -558,8 +558,6 @@
 </li>
         <li><a href="api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.evaluate_ood">evaluate_ood() (in module probly.evaluation.ood_api)</a>
 </li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.evaluate_ood_performance">evaluate_ood_performance() (in module probly.evaluation.ood_metrics)</a>
-</li>
         <li><a href="api/probly.transformation.html#probly.transformation.evidential_classification">evidential_classification() (in module probly.transformation)</a>
 
         <ul>
@@ -652,7 +650,9 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.fpr">fpr (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.fpr">fpr (probly.evaluation.types.OodEvaluationResult attribute)</a>
+</li>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.fpr95">fpr95 (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -690,16 +690,18 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.id_scores">id_scores (probly.evaluation.types.OodEvaluationResult attribute)</a>
+</li>
         <li><a href="api/probly.datasets.torch.html#probly.datasets.torch.DCICDataset.image_labels">image_labels (probly.datasets.torch.DCICDataset attribute)</a>
 </li>
         <li><a href="api/probly.datasets.torch.html#probly.datasets.torch.DCICDataset.image_paths">image_paths (probly.datasets.torch.DCICDataset attribute)</a>
 </li>
         <li><a href="api/probly.datasets.torch.html#probly.datasets.torch.ImageNetReaL">ImageNetReaL (class in probly.datasets.torch)</a>
 </li>
-        <li><a href="api/probly.layers.torch.html#probly.layers.torch.BayesConv2d.in_channels">in_channels (probly.layers.torch.BayesConv2d attribute)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/probly.layers.torch.html#probly.layers.torch.BayesConv2d.in_channels">in_channels (probly.layers.torch.BayesConv2d attribute)</a>
+</li>
         <li><a href="api/probly.layers.torch.html#probly.layers.torch.BayesLinear.in_features">in_features (probly.layers.torch.BayesLinear attribute)</a>
 
         <ul>
@@ -763,8 +765,6 @@
         <li><a href="api/probly.datasets.torch.html#probly.datasets.torch.DCICDataset.label_mappings">label_mappings (probly.datasets.torch.DCICDataset attribute)</a>
 </li>
         <li><a href="api/probly.train.calibration.torch.html#probly.train.calibration.torch.LabelRelaxationLoss">LabelRelaxationLoss (class in probly.train.calibration.torch)</a>
-</li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.labels">labels (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
 </li>
         <li><a href="api/probly.representation.sampling.html#probly.representation.sampling.ListSample">ListSample (class in probly.representation.sampling)</a>
 
@@ -834,9 +834,9 @@
 </li>
           <li><a href="api/probly.evaluation.ood_api.html#module-probly.evaluation.ood_api">probly.evaluation.ood_api</a>
 </li>
-          <li><a href="api/probly.evaluation.ood_metrics.html#module-probly.evaluation.ood_metrics">probly.evaluation.ood_metrics</a>
-</li>
           <li><a href="api/probly.evaluation.tasks.html#module-probly.evaluation.tasks">probly.evaluation.tasks</a>
+</li>
+          <li><a href="api/probly.evaluation.types.html#module-probly.evaluation.types">probly.evaluation.types</a>
 </li>
           <li><a href="api/probly.layers.html#module-probly.layers">probly.layers</a>
 </li>
@@ -975,7 +975,9 @@
   <h2>O</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult">OodEvaluationResult (class in probly.evaluation.ood_metrics)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.ood_scores">ood_scores (probly.evaluation.types.OodEvaluationResult attribute)</a>
+</li>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult">OodEvaluationResult (class in probly.evaluation.types)</a>
 </li>
         <li><a href="api/probly.layers.torch.html#probly.layers.torch.BayesConv2d.out_channels">out_channels (probly.layers.torch.BayesConv2d attribute)</a>
 </li>
@@ -985,10 +987,10 @@
           <li><a href="api/probly.layers.torch.html#probly.layers.torch.DropConnectLinear.out_features">(probly.layers.torch.DropConnectLinear attribute)</a>
 </li>
         </ul></li>
-        <li><a href="api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_aupr">out_of_distribution_detection_aupr() (in module probly.evaluation.tasks)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_aupr">out_of_distribution_detection_aupr() (in module probly.evaluation.tasks)</a>
+</li>
         <li><a href="api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_auroc">out_of_distribution_detection_auroc() (in module probly.evaluation.tasks)</a>
 </li>
         <li><a href="api/probly.evaluation.tasks.html#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_95">out_of_distribution_detection_fnr_at_95() (in module probly.evaluation.tasks)</a>
@@ -1027,7 +1029,7 @@
           <li><a href="api/probly.utils.sets.html#probly.utils.sets.powerset">(in module probly.utils.sets)</a>
 </li>
         </ul></li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.precision">precision (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.precision">precision (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
         <li><a href="api/probly.representation.html#probly.representation.Sampler.predict">predict() (probly.representation.Sampler method)</a>
 
@@ -1049,8 +1051,6 @@
           <li><a href="api/probly.representation.sampling.sampler.html#probly.representation.sampling.sampler.Sampler.predictor">(probly.representation.sampling.sampler.Sampler attribute)</a>
 </li>
         </ul></li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.preds">preds (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
-</li>
         <li>
     probly
 
@@ -1094,17 +1094,17 @@
 </li>
         </ul></li>
         <li>
-    probly.evaluation.ood_metrics
-
-        <ul>
-          <li><a href="api/probly.evaluation.ood_metrics.html#module-probly.evaluation.ood_metrics">module</a>
-</li>
-        </ul></li>
-        <li>
     probly.evaluation.tasks
 
         <ul>
           <li><a href="api/probly.evaluation.tasks.html#module-probly.evaluation.tasks">module</a>
+</li>
+        </ul></li>
+        <li>
+    probly.evaluation.types
+
+        <ul>
+          <li><a href="api/probly.evaluation.types.html#module-probly.evaluation.types">module</a>
 </li>
         </ul></li>
         <li>
@@ -1458,7 +1458,7 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api/probly.utils.errors.html#probly.utils.errors.raise_deprecation_warning">raise_deprecation_warning() (in module probly.utils.errors)</a>
 </li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.recall">recall (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.recall">recall (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
         <li><a href="api/probly.transformation.evidential.classification.common.html#probly.transformation.evidential.classification.common.register">register() (in module probly.transformation.evidential.classification.common)</a>
 
@@ -1606,7 +1606,7 @@
           <li><a href="api/probly.quantification.regression.html#probly.quantification.regression.total_variance">(in module probly.quantification.regression)</a>
 </li>
         </ul></li>
-        <li><a href="api/probly.evaluation.ood_metrics.html#probly.evaluation.ood_metrics.OodEvaluationResult.tpr">tpr (probly.evaluation.ood_metrics.OodEvaluationResult attribute)</a>
+        <li><a href="api/probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult.tpr">tpr (probly.evaluation.types.OodEvaluationResult attribute)</a>
 </li>
         <li><a href="api/probly.datasets.torch.html#probly.datasets.torch.DCICDataset.transform">transform (probly.datasets.torch.DCICDataset attribute)</a>
 </li>
@@ -1674,6 +1674,8 @@
           <li><a href="api/probly.quantification.regression.html#probly.quantification.regression.variance_conditional_expectation">(in module probly.quantification.regression)</a>
 </li>
         </ul></li>
+        <li><a href="api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.visualize_ood">visualize_ood() (in module probly.evaluation.ood_api)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>

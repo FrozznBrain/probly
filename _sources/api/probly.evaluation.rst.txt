@@ -12,5 +12,5 @@
 
    metrics
    ood_api
-   ood_metrics
    tasks
+   types

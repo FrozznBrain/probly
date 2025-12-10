@@ -10,4 +10,5 @@ probly.evaluation.ood\_api
    
       evaluate_ood
       parse_dynamic_metric
+      visualize_ood
    

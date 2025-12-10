@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.ood_metrics" href="probly.evaluation.ood_metrics.html" /><link rel="prev" title="probly.evaluation.metrics" href="probly.evaluation.metrics.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.tasks" href="probly.evaluation.tasks.html" /><link rel="prev" title="probly.evaluation.metrics" href="probly.evaluation.metrics.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>probly.evaluation.ood_api - probly 0.3.1 documentation</title>
@@ -229,8 +229,8 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood_api</a></li>
-<li class="toctree-l3"><a class="reference internal" href="probly.evaluation.ood_metrics.html">probly.evaluation.ood_metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -374,6 +374,9 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="probly.evaluation.ood_api.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
 <td><p>Parse dynamic metric specification.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood" title="probly.evaluation.ood_api.visualize_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_ood</span></code></a>(in_distribution, out_distribution)</p></td>
+<td><p>Generate visualization plots for OOD evaluation.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -436,6 +439,53 @@ float or dict</p>
 fnr&#64;95%</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.evaluation.ood_api.visualize_ood">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
+<dd><p>Generate visualization plots for OOD evaluation.</p>
+<p>Calculates curve data (ROC, PR) and generates standard plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code></a>]</span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Parameters:
+in_distribution :</p>
+<blockquote>
+<div><p>Scores for in-distribution samples.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>out_distribution :</dt><dd><p>Scores for out-of-distribution samples.</p>
+</dd>
+<dt>invert_scores<span class="classifier">bool</span></dt><dd><p>If True (default), assumes scores are ‘Confidence’ (High = ID).
+They will be inverted (1.0 - score) for metrics where OOD is the positive class.
+If False, assumes scores are ‘Anomaly Scores’ (High = OOD).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘roc’, ‘pr’, ‘hist’.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict containing matplotlib Figures</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -443,12 +493,12 @@ fnr&#64;95%</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="probly.evaluation.ood_metrics.html">
+          <a class="next-page" href="probly.evaluation.tasks.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">probly.evaluation.ood_metrics</div>
+                <div class="title">probly.evaluation.tasks</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -496,6 +546,7 @@ fnr&#64;95%</p>
 <li><a class="reference internal" href="#">probly.evaluation.ood_api</a><ul>
 <li><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
 <li><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood"><code class="docutils literal notranslate"><span class="pre">visualize_ood()</span></code></a></li>
 </ul>
 </li>
 </ul>
