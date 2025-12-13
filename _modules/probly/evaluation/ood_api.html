@@ -372,9 +372,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">probly.evaluation.tasks</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">out_of_distribution_detection_aupr</span><span class="p">,</span>
     <span class="n">out_of_distribution_detection_auroc</span><span class="p">,</span>
-    <span class="n">out_of_distribution_detection_fnr_at_95</span><span class="p">,</span>
     <span class="n">out_of_distribution_detection_fnr_at_x_tpr</span><span class="p">,</span>
-    <span class="n">out_of_distribution_detection_fpr_at_95_tpr</span><span class="p">,</span>
     <span class="n">out_of_distribution_detection_fpr_at_x_tpr</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">probly.evaluation.types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -391,8 +389,6 @@
 <span class="n">STATIC_METRICS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;auroc&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_auroc</span><span class="p">,</span>
     <span class="s2">&quot;aupr&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_aupr</span><span class="p">,</span>
-    <span class="s2">&quot;fnr@95&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fnr_at_95</span><span class="p">,</span>
-    <span class="s2">&quot;fpr@95tpr&quot;</span><span class="p">:</span> <span class="n">out_of_distribution_detection_fpr_at_95_tpr</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">DYNAMIC_METRICS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
