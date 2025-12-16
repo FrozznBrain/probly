@@ -444,7 +444,7 @@ fnr -&gt; default threshold is 0.95</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="probly.evaluation.ood_api.visualize_ood">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
 <dd><p>Generate visualization plots for OOD evaluation.</p>
 <p>Calculates curve data (ROC, PR) and generates standard plots.</p>
 <dl class="field-list simple">
@@ -456,6 +456,7 @@ fnr -&gt; default threshold is 0.95</p>
 <li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
 <li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
 <li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>plot_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -471,20 +472,24 @@ in_distribution :</p>
 They will be inverted (1.0 - score) for metrics where OOD is the positive class.
 If False, assumes scores are ‘Anomaly Scores’ (High = OOD).</p>
 </dd>
+<dt>plot_types<span class="classifier">list[str], optional</span></dt><dd><p>List of specific plots to return (e.g. [‘roc’, ‘hist’, ‘pr’]).
+If None, all plots are generated.</p>
+</dd>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘roc’, ‘pr’, ‘hist’.</p>
+<dd class="field-odd"><p>Dict containing matplotlib Figures for the requested plots.</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict containing matplotlib Figures</p>
-</dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
 <li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
 <li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
 <li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>plot_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
 </ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.8)"><em>Figure</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
