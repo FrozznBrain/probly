@@ -457,6 +457,8 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</span>
 
+<span class="sd">    If no thresholds are specified, the default tpr_target is 0.95.</span>
+
 <span class="sd">    This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</span>
 
 <span class="sd">    Args:</span>
@@ -502,6 +504,8 @@
     <span class="n">tpr_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using false negative rate at user given true positive rate.</span>
+
+<span class="sd">    If no thresholds are specified, the default tpr_target is 0.95.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        in_distribution: in-distribution prediction functionals</span>

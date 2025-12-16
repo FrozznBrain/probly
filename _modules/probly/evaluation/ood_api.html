@@ -419,18 +419,27 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        fpr@0.8</span>
 <span class="sd">        fnr@95%</span>
+<span class="sd">        fpr -&gt; default threshold is 0.95</span>
+<span class="sd">        fnr -&gt; default threshold is 0.95</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">base</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
-        <span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-        <span class="n">threshold</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="n">spec</span>
+            <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+            <span class="n">threshold</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
         <span class="n">_validate_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span>
         <span class="n">_validate_base_metric</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid metric specification &#39;</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s2">&#39;. Use e.g. &#39;fpr@0.8&#39; or &#39;fnr@90%&#39;.&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid metric specification &#39;</span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s2">&#39;. Use e.g. &#39;fpr&#39;, &#39;fpr@0.8&#39; or &#39;fnr@90%&#39;.&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">base</span><span class="p">,</span> <span class="n">threshold</span></div>
@@ -470,7 +479,7 @@
         <span class="k">return</span> <span class="n">STATIC_METRICS</span><span class="p">[</span><span class="s2">&quot;auroc&quot;</span><span class="p">](</span><span class="n">in_s</span><span class="p">,</span> <span class="n">out_s</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">metric_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">STATIC_METRICS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="n">metrics</span><span class="p">]</span>
+        <span class="n">metric_list</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">STATIC_METRICS</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="s2">&quot;fpr&quot;</span><span class="p">,</span> <span class="s2">&quot;fnr&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">metrics</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="n">metrics</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">metric_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
 
@@ -481,16 +490,18 @@
 
         <span class="k">if</span> <span class="n">metric_name_lower</span> <span class="ow">in</span> <span class="n">STATIC_METRICS</span><span class="p">:</span>
             <span class="n">results</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">STATIC_METRICS</span><span class="p">[</span><span class="n">metric_name_lower</span><span class="p">](</span><span class="n">in_s</span><span class="p">,</span> <span class="n">out_s</span><span class="p">)</span>
-            <span class="k">continue</span>
 
-        <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">metric_name_lower</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">metric_name_lower</span> <span class="ow">in</span> <span class="n">DYNAMIC_METRICS</span> <span class="ow">or</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">metric_name_lower</span><span class="p">:</span>
             <span class="n">base</span><span class="p">,</span> <span class="n">thr</span> <span class="o">=</span> <span class="n">parse_dynamic_metric</span><span class="p">(</span><span class="n">metric_name_lower</span><span class="p">)</span>
             <span class="n">results</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">DYNAMIC_METRICS</span><span class="p">[</span><span class="n">base</span><span class="p">](</span><span class="n">in_s</span><span class="p">,</span> <span class="n">out_s</span><span class="p">,</span> <span class="n">thr</span><span class="p">)</span>
-            <span class="k">continue</span>
 
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Unknown metric &#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&#39;. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">STATIC_METRICS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2"> + dynamic metric@value.&quot;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown metric &#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">STATIC_METRICS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot; + dynamic metrics &#39;fpr&#39;, &#39;fnr&#39; (optionally with @value).&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span></div>
 
 
