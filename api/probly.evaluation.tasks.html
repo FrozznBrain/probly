@@ -369,130 +369,12 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_aupr" title="probly.evaluation.tasks.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
-<td><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_auroc" title="probly.evaluation.tasks.out_of_distribution_detection_auroc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc</span></code></a>(...)</p></td>
-<td><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr" title="probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></code></a>(...)</p></td>
-<td><p>Perform out-of-distribution detection using false negative rate at user given true positive rate.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr" title="probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></code></a>(...)</p></td>
-<td><p>Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.tasks.selective_prediction" title="probly.evaluation.tasks.selective_prediction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selective_prediction</span></code></a>(criterion, losses[, n_bins])</p></td>
 <td><p>Selective prediction downstream task for evaluation.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.tasks.out_of_distribution_detection_aupr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_aupr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#out_of_distribution_detection_aupr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.out_of_distribution_detection_aupr" title="Link to this definition">¶</a></dt>
-<dd><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p>
-<p>This metric evaluates how well the model distinguishes between in- and out-of-distribution samples,
-focusing more on positive class (OOD) precision and recall.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – in-distribution prediction functionals</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – out-of-distribution prediction functionals</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float, area under the precision-recall curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>aupr</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.tasks.out_of_distribution_detection_auroc">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_auroc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#out_of_distribution_detection_auroc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.out_of_distribution_detection_auroc" title="Link to this definition">¶</a></dt>
-<dd><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p>
-<p>This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – in-distribution prediction functionals</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – out-of-distribution prediction functionals</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float, area under the roc curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>auroc</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#out_of_distribution_detection_fnr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr" title="Link to this definition">¶</a></dt>
-<dd><p>Perform out-of-distribution detection using false negative rate at user given true positive rate.</p>
-<p>If no thresholds are specified, the default tpr_target is 0.95.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – in-distribution prediction functionals</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – out-of-distribution prediction functionals</p></li>
-<li><p><strong>tpr_target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – target TPR value in [0, 1], e.g. 0.95</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float, FNR at the first threshold where TPR &gt;= tpr_target</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>fnr&#64;X</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#out_of_distribution_detection_fpr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr" title="Link to this definition">¶</a></dt>
-<dd><p>Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</p>
-<p>If no thresholds are specified, the default tpr_target is 0.95.</p>
-<p>This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – numpy.ndarray, scores for in-distribution samples</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – numpy.ndarray, scores for out-of-distribution samples</p></li>
-<li><p><strong>tpr_target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – target TPR value in [0, 1], e.g. 0.95</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float, FPR at the first threshold where TPR &gt;= tpr_target</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>fpr_at_target</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>Assumes that larger scores correspond to the positive class
-(out-of-distribution).</p></li>
-<li><p>If tpr_target cannot be reached, a ValueError is raised.</p></li>
-</ul>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="probly.evaluation.tasks.selective_prediction">
 <span class="sig-prename descclassname"><span class="pre">probly.evaluation.tasks.</span></span><span class="sig-name descname"><span class="pre">selective_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criterion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/tasks.html#selective_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.tasks.selective_prediction" title="Link to this definition">¶</a></dt>
@@ -580,10 +462,6 @@ bin_losses: numpy.ndarray shape (n_bins,), loss per bin</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">probly.evaluation.tasks</a><ul>
-<li><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_aupr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_auroc"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_fnr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.tasks.out_of_distribution_detection_fpr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr()</span></code></a></li>
 <li><a class="reference internal" href="#probly.evaluation.tasks.selective_prediction"><code class="docutils literal notranslate"><span class="pre">selective_prediction()</span></code></a></li>
 </ul>
 </li>
