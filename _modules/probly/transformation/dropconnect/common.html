@@ -374,11 +374,7 @@
     <span class="kn">from</span><span class="w"> </span><span class="nn">probly.predictor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Predictor</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">pytraverse.composition</span><span class="w"> </span><span class="kn">import</span> <span class="n">RegisteredLooseTraverser</span>
 
-<span class="n">P</span> <span class="o">=</span> <span class="n">GlobalVariable</span><span class="p">[</span><span class="nb">float</span><span class="p">](</span>
-    <span class="s2">&quot;P&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;The probability of dropconnect.&quot;</span><span class="p">,</span>
-    <span class="mf">0.25</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">GlobalVariable</span><span class="p">[</span><span class="nb">float</span><span class="p">](</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;The probability of dropconnect.&quot;</span><span class="p">)</span>
 
 <span class="n">dropconnect_traverser</span> <span class="o">=</span> <span class="n">lazydispatch_traverser</span><span class="p">[</span><span class="nb">object</span><span class="p">](</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;dropconnect_traverser&quot;</span><span class="p">)</span>
 
