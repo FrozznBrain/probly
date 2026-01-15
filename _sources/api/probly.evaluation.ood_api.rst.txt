@@ -8,6 +8,7 @@ probly.evaluation.ood\_api
 
    .. autosummary::
    
+      compute_ood_evaluation_result
       evaluate_ood
       out_of_distribution_detection_aupr
       out_of_distribution_detection_auroc

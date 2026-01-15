@@ -369,30 +369,80 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood" title="probly.evaluation.ood_api.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.compute_ood_evaluation_result" title="probly.evaluation.ood_api.compute_ood_evaluation_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_ood_evaluation_result</span></code></a>(...[, ...])</p></td>
+<td><p>Compute all OOD metrics and curve data for visualization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood" title="probly.evaluation.ood_api.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
 <td><p>Unified OOD evaluation API.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr" title="probly.evaluation.ood_api.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr" title="probly.evaluation.ood_api.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc" title="probly.evaluation.ood_api.out_of_distribution_detection_auroc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc" title="probly.evaluation.ood_api.out_of_distribution_detection_auroc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using false negative rate at user given true positive rate.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="probly.evaluation.ood_api.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="probly.evaluation.ood_api.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
 <td><p>Parse dynamic metric specification.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood" title="probly.evaluation.ood_api.visualize_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_ood</span></code></a>(in_distribution, out_distribution)</p></td>
-<td><p>Generate visualization plots for OOD evaluation.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood" title="probly.evaluation.ood_api.visualize_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_ood</span></code></a>(result_data[, plot_types])</p></td>
+<td><p>Generate visualization plots from OODEvaluationResult type.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<dl class="py function">
+<dt class="sig sig-object py" id="probly.evaluation.ood_api.compute_ood_evaluation_result">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">compute_ood_evaluation_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#compute_ood_evaluation_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.compute_ood_evaluation_result" title="Link to this definition">¶</a></dt>
+<dd><p>Compute all OOD metrics and curve data for visualization.</p>
+<p>Calculation Logic is seperated from the actual plotting logic in the visualize_ood() function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult" title="probly.evaluation.types.OodEvaluationResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">OodEvaluationResult</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Parameters:
+in_distribution :</p>
+<blockquote>
+<div><p>Scores for in-distribution samples.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>out_distribution :</dt><dd><p>Scores for out-of-distribution samples.</p>
+</dd>
+<dt>invert_scores<span class="classifier">bool</span></dt><dd><p>If True (default), assumes scores are ‘Confidence’ (High = ID).
+They will be inverted (1.0 - score) for metrics where OOD is the positive class.
+If False, assumes scores are ‘Anomaly Scores’ (High = OOD).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OodEvaluationResult object containing scalars and curve arrays.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
+<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult" title="probly.evaluation.types.OodEvaluationResult"><em>OodEvaluationResult</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="probly.evaluation.ood_api.evaluate_ood">
 <span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.evaluate_ood" title="Link to this definition">¶</a></dt>
@@ -561,34 +611,26 @@ fnr -&gt; default threshold is 0.95</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="probly.evaluation.ood_api.visualize_ood">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
-<dd><p>Generate visualization plots for OOD evaluation.</p>
-<p>Calculates curve data (ROC, PR) and generates standard plots.</p>
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
+<dd><p>Generate visualization plots from OODEvaluationResult type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
-<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>result_data</strong> (<a class="reference internal" href="probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult" title="probly.evaluation.types.OodEvaluationResult"><em>OodEvaluationResult</em></a>)</p></li>
 <li><p><strong>plot_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <p>Parameters:
-in_distribution :</p>
+result_data : OodEvaluationResult</p>
 <blockquote>
-<div><p>Scores for in-distribution samples.</p>
+<div><p>The calculated result object containing scores and curve data.
+Use <cite>compute_ood_evaluation_result</cite> to generate this.</p>
 </div></blockquote>
 <dl class="simple">
-<dt>out_distribution :</dt><dd><p>Scores for out-of-distribution samples.</p>
-</dd>
-<dt>invert_scores<span class="classifier">bool</span></dt><dd><p>If True (default), assumes scores are ‘Confidence’ (High = ID).
-They will be inverted (1.0 - score) for metrics where OOD is the positive class.
-If False, assumes scores are ‘Anomaly Scores’ (High = OOD).</p>
-</dd>
 <dt>plot_types<span class="classifier">list[str], optional</span></dt><dd><p>List of specific plots to return (e.g. [‘roc’, ‘hist’, ‘pr’]).
 If None, all plots are generated.</p>
 </dd>
@@ -599,9 +641,7 @@ If None, all plots are generated.</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>in_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
-<li><p><strong>out_distribution</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em>)</p></li>
-<li><p><strong>invert_scores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>result_data</strong> (<a class="reference internal" href="probly.evaluation.types.html#probly.evaluation.types.OodEvaluationResult" title="probly.evaluation.types.OodEvaluationResult"><em>OodEvaluationResult</em></a>)</p></li>
 <li><p><strong>plot_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
 </ul>
 </dd>
@@ -669,6 +709,7 @@ If None, all plots are generated.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">probly.evaluation.ood_api</a><ul>
+<li><a class="reference internal" href="#probly.evaluation.ood_api.compute_ood_evaluation_result"><code class="docutils literal notranslate"><span class="pre">compute_ood_evaluation_result()</span></code></a></li>
 <li><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
 <li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr()</span></code></a></li>
 <li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc()</span></code></a></li>
