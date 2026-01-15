@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood_api - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.ood - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -227,7 +227,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.evaluation.html">probly.evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood_api.html">probly.evaluation.ood_api</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood.html">probly.evaluation.ood</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
@@ -359,7 +359,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for probly.evaluation.ood_api</h1><div class="highlight"><pre>
+          <h1>Source code for probly.evaluation.ood</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Unified OOD evaluation API for probly.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -382,7 +382,7 @@
 
 
 <div class="viewcode-block" id="out_of_distribution_detection_auroc">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.out_of_distribution_detection_auroc">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.out_of_distribution_detection_auroc">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_auroc</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using prediction functionals from id and ood data.</span>
 
@@ -403,7 +403,7 @@
 
 
 <div class="viewcode-block" id="out_of_distribution_detection_aupr">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.out_of_distribution_detection_aupr">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.out_of_distribution_detection_aupr">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_aupr</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</span>
 
@@ -425,7 +425,7 @@
 
 
 <div class="viewcode-block" id="out_of_distribution_detection_fpr_at_x_tpr">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fpr_at_x_tpr</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -473,7 +473,7 @@
 
 
 <div class="viewcode-block" id="out_of_distribution_detection_fnr_at_x_tpr">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">out_of_distribution_detection_fnr_at_x_tpr</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
@@ -525,7 +525,7 @@
 
 
 <div class="viewcode-block" id="parse_dynamic_metric">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.parse_dynamic_metric">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.parse_dynamic_metric">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_dynamic_metric</span><span class="p">(</span><span class="n">spec</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse dynamic metric specification.</span>
 
@@ -560,7 +560,7 @@
 
 
 <div class="viewcode-block" id="evaluate_ood">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.evaluate_ood">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.evaluate_ood">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_ood</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
@@ -624,7 +624,7 @@
 
 
 <div class="viewcode-block" id="compute_ood_evaluation_result">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.compute_ood_evaluation_result">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.compute_ood_evaluation_result">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_ood_evaluation_result</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
@@ -680,7 +680,7 @@
 
 
 <div class="viewcode-block" id="visualize_ood">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood_api.html#probly.evaluation.ood_api.visualize_ood">[docs]</a>
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.visualize_ood">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">visualize_ood</span><span class="p">(</span>
     <span class="n">result_data</span><span class="p">:</span> <span class="n">OodEvaluationResult</span><span class="p">,</span>
     <span class="n">plot_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

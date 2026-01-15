@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="probly.evaluation.tasks" href="probly.evaluation.tasks.html" /><link rel="prev" title="probly.evaluation.metrics" href="probly.evaluation.metrics.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>probly.evaluation.ood_api - probly 0.3.1 documentation</title>
+        <title>probly.evaluation.ood - probly 0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -228,7 +228,7 @@
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="probly.evaluation.html">probly.evaluation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of probly.evaluation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood_api</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">probly.evaluation.ood</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
@@ -362,43 +362,43 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-probly.evaluation.ood_api">
-<span id="probly-evaluation-ood-api"></span><h1>probly.evaluation.ood_api<a class="headerlink" href="#module-probly.evaluation.ood_api" title="Link to this heading">¶</a></h1>
+          <section id="module-probly.evaluation.ood">
+<span id="probly-evaluation-ood"></span><h1>probly.evaluation.ood<a class="headerlink" href="#module-probly.evaluation.ood" title="Link to this heading">¶</a></h1>
 <p>Unified OOD evaluation API for probly.</p>
 <p class="rubric">Functions</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.compute_ood_evaluation_result" title="probly.evaluation.ood_api.compute_ood_evaluation_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_ood_evaluation_result</span></code></a>(...[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.compute_ood_evaluation_result" title="probly.evaluation.ood.compute_ood_evaluation_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_ood_evaluation_result</span></code></a>(...[, ...])</p></td>
 <td><p>Compute all OOD metrics and curve data for visualization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood" title="probly.evaluation.ood_api.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood" title="probly.evaluation.ood.evaluate_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_ood</span></code></a>(in_distribution, out_distribution)</p></td>
 <td><p>Unified OOD evaluation API.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr" title="probly.evaluation.ood_api.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_aupr" title="probly.evaluation.ood.out_of_distribution_detection_aupr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc" title="probly.evaluation.ood_api.out_of_distribution_detection_auroc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_auroc" title="probly.evaluation.ood.out_of_distribution_detection_auroc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr" title="probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using false negative rate at user given true positive rate.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr" title="probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr" title="probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></code></a>(...)</p></td>
 <td><p>Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="probly.evaluation.ood_api.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric" title="probly.evaluation.ood.parse_dynamic_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_dynamic_metric</span></code></a>(spec)</p></td>
 <td><p>Parse dynamic metric specification.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood" title="probly.evaluation.ood_api.visualize_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_ood</span></code></a>(result_data[, plot_types])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#probly.evaluation.ood.visualize_ood" title="probly.evaluation.ood.visualize_ood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_ood</span></code></a>(result_data[, plot_types])</p></td>
 <td><p>Generate visualization plots from OODEvaluationResult type.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.compute_ood_evaluation_result">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">compute_ood_evaluation_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#compute_ood_evaluation_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.compute_ood_evaluation_result" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.compute_ood_evaluation_result">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">compute_ood_evaluation_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert_scores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#compute_ood_evaluation_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.compute_ood_evaluation_result" title="Link to this definition">¶</a></dt>
 <dd><p>Compute all OOD metrics and curve data for visualization.</p>
 <p>Calculation Logic is seperated from the actual plotting logic in the visualize_ood() function.</p>
 <dl class="field-list simple">
@@ -444,8 +444,8 @@ If False, assumes scores are ‘Anomaly Scores’ (High = OOD).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.evaluate_ood">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.evaluate_ood" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.evaluate_ood">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">evaluate_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#evaluate_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.evaluate_ood" title="Link to this definition">¶</a></dt>
 <dd><p>Unified OOD evaluation API.</p>
 <p>Provides backward compatibility while supporting multiple metrics.</p>
 <dl class="field-list simple">
@@ -485,8 +485,8 @@ the dict contains only the “auroc” entry.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.out_of_distribution_detection_aupr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_aupr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#out_of_distribution_detection_aupr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.out_of_distribution_detection_aupr">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_aupr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#out_of_distribution_detection_aupr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.out_of_distribution_detection_aupr" title="Link to this definition">¶</a></dt>
 <dd><p>Perform out-of-distribution detection using AUPR (Area Under the Precision-Recall Curve).</p>
 <p>This metric evaluates how well the model distinguishes between in- and out-of-distribution samples,
 focusing more on positive class (OOD) precision and recall.</p>
@@ -510,8 +510,8 @@ focusing more on positive class (OOD) precision and recall.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.out_of_distribution_detection_auroc">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_auroc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#out_of_distribution_detection_auroc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.out_of_distribution_detection_auroc">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_auroc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#out_of_distribution_detection_auroc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.out_of_distribution_detection_auroc" title="Link to this definition">¶</a></dt>
 <dd><p>Perform out-of-distribution detection using prediction functionals from id and ood data.</p>
 <p>This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</p>
 <dl class="field-list simple">
@@ -534,8 +534,8 @@ focusing more on positive class (OOD) precision and recall.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#out_of_distribution_detection_fnr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#out_of_distribution_detection_fnr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr" title="Link to this definition">¶</a></dt>
 <dd><p>Perform out-of-distribution detection using false negative rate at user given true positive rate.</p>
 <p>If no thresholds are specified, the default tpr_target is 0.95.</p>
 <dl class="field-list simple">
@@ -559,8 +559,8 @@ focusing more on positive class (OOD) precision and recall.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#out_of_distribution_detection_fpr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_distribution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpr_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#out_of_distribution_detection_fpr_at_x_tpr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr" title="Link to this definition">¶</a></dt>
 <dd><p>Perform out-of-distribution detection using false positive rate (FPR) at a given true positive rate.</p>
 <p>If no thresholds are specified, the default tpr_target is 0.95.</p>
 <p>This can be epistemic uncertainty, as is common, but also e.g. softmax confidence.</p>
@@ -591,8 +591,8 @@ focusing more on positive class (OOD) precision and recall.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.parse_dynamic_metric">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">parse_dynamic_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#parse_dynamic_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.parse_dynamic_metric" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.parse_dynamic_metric">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">parse_dynamic_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#parse_dynamic_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.parse_dynamic_metric" title="Link to this definition">¶</a></dt>
 <dd><p>Parse dynamic metric specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -610,8 +610,8 @@ fnr -&gt; default threshold is 0.95</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="probly.evaluation.ood_api.visualize_ood">
-<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood_api.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood_api.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood_api.visualize_ood" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="probly.evaluation.ood.visualize_ood">
+<span class="sig-prename descclassname"><span class="pre">probly.evaluation.ood.</span></span><span class="sig-name descname"><span class="pre">visualize_ood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/probly/evaluation/ood.html#visualize_ood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#probly.evaluation.ood.visualize_ood" title="Link to this definition">¶</a></dt>
 <dd><p>Generate visualization plots from OODEvaluationResult type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -708,15 +708,15 @@ If None, all plots are generated.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">probly.evaluation.ood_api</a><ul>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.compute_ood_evaluation_result"><code class="docutils literal notranslate"><span class="pre">compute_ood_evaluation_result()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_aupr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_auroc"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fnr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.out_of_distribution_detection_fpr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
-<li><a class="reference internal" href="#probly.evaluation.ood_api.visualize_ood"><code class="docutils literal notranslate"><span class="pre">visualize_ood()</span></code></a></li>
+<li><a class="reference internal" href="#">probly.evaluation.ood</a><ul>
+<li><a class="reference internal" href="#probly.evaluation.ood.compute_ood_evaluation_result"><code class="docutils literal notranslate"><span class="pre">compute_ood_evaluation_result()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.evaluate_ood"><code class="docutils literal notranslate"><span class="pre">evaluate_ood()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_aupr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_aupr()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_auroc"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_auroc()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_fnr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fnr_at_x_tpr()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.out_of_distribution_detection_fpr_at_x_tpr"><code class="docutils literal notranslate"><span class="pre">out_of_distribution_detection_fpr_at_x_tpr()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.parse_dynamic_metric"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_metric()</span></code></a></li>
+<li><a class="reference internal" href="#probly.evaluation.ood.visualize_ood"><code class="docutils literal notranslate"><span class="pre">visualize_ood()</span></code></a></li>
 </ul>
 </li>
 </ul>

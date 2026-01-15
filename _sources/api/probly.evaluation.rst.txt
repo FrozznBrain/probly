@@ -11,6 +11,6 @@
    :recursive:
 
    metrics
-   ood_api
+   ood
    tasks
    types
