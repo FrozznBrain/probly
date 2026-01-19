@@ -229,7 +229,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.metrics.html">probly.evaluation.metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.ood.html">probly.evaluation.ood</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.tasks.html">probly.evaluation.tasks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/probly.evaluation.types.html">probly.evaluation.types</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/probly.layers.html">probly.layers</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of probly.layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -370,9 +369,6 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">roc_curve</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">probly.evaluation.types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">OodEvaluationResult</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">probly.plot.ood</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span><span class="p">,</span> <span class="n">plot_pr_curve</span><span class="p">,</span> <span class="n">plot_roc_curve</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -623,93 +619,64 @@
 
 
 
-<div class="viewcode-block" id="compute_ood_evaluation_result">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.compute_ood_evaluation_result">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_ood_evaluation_result</span><span class="p">(</span>
+<div class="viewcode-block" id="visualize_ood">
+<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.visualize_ood">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">visualize_ood</span><span class="p">(</span>
     <span class="n">in_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">out_distribution</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">plot_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">invert_scores</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OodEvaluationResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute all OOD metrics and curve data for visualization.</span>
-
-<span class="sd">    Calculation Logic is seperated from the actual plotting logic in the visualize_ood() function.</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Figure</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate visualization plots from OOD scores.</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">    in_distribution :</span>
 <span class="sd">        Scores for in-distribution samples.</span>
 <span class="sd">    out_distribution :</span>
 <span class="sd">        Scores for out-of-distribution samples.</span>
+<span class="sd">    plot_types : list[str], optional</span>
+<span class="sd">        List of specific plots to return (e.g. [&#39;roc&#39;, &#39;hist&#39;, &#39;pr&#39;]).</span>
+<span class="sd">        If None, all plots are generated.</span>
 <span class="sd">    invert_scores : bool</span>
 <span class="sd">        If True (default), assumes scores are &#39;Confidence&#39; (High = ID).</span>
 <span class="sd">        They will be inverted (1.0 - score) for metrics where OOD is the positive class.</span>
 <span class="sd">        If False, assumes scores are &#39;Anomaly Scores&#39; (High = OOD).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        OodEvaluationResult object containing scalars and curve arrays.</span>
+<span class="sd">        Dict containing matplotlib Figures for the requested plots.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">id_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">in_distribution</span><span class="p">)</span>
     <span class="n">ood_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">out_distribution</span><span class="p">)</span>
 
-    <span class="c1"># 1. Decoupled calculation</span>
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">evaluate_ood</span><span class="p">(</span><span class="n">id_s</span><span class="p">,</span> <span class="n">ood_s</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;auroc&quot;</span><span class="p">,</span> <span class="s2">&quot;aupr&quot;</span><span class="p">,</span> <span class="s2">&quot;fpr@95%&quot;</span><span class="p">])</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">scalars</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;auroc&quot;</span><span class="p">:</span> <span class="n">scalars</span><span class="p">,</span> <span class="s2">&quot;aupr&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;fpr@95%&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
-
-    <span class="c1"># 2. Prepare Data for Curve</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">id_s</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ood_s</span><span class="p">))])</span>
-    <span class="n">all_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">id_s</span><span class="p">,</span> <span class="n">ood_s</span><span class="p">])</span>
-
-    <span class="n">preds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">all_scores</span> <span class="k">if</span> <span class="n">invert_scores</span> <span class="k">else</span> <span class="n">all_scores</span>
-
-    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
-    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
-
-    <span class="c1"># 3. Return Result Object</span>
-    <span class="k">return</span> <span class="n">OodEvaluationResult</span><span class="p">(</span>
-        <span class="n">auroc</span><span class="o">=</span><span class="n">scalars</span><span class="p">[</span><span class="s2">&quot;auroc&quot;</span><span class="p">],</span>
-        <span class="n">aupr</span><span class="o">=</span><span class="n">scalars</span><span class="p">[</span><span class="s2">&quot;aupr&quot;</span><span class="p">],</span>
-        <span class="n">fpr95</span><span class="o">=</span><span class="n">scalars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fpr@95%&quot;</span><span class="p">),</span>
-        <span class="n">fpr</span><span class="o">=</span><span class="n">fpr</span><span class="p">,</span>
-        <span class="n">tpr</span><span class="o">=</span><span class="n">tpr</span><span class="p">,</span>
-        <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span>
-        <span class="n">recall</span><span class="o">=</span><span class="n">recall</span><span class="p">,</span>
-        <span class="n">id_scores</span><span class="o">=</span><span class="n">id_s</span><span class="p">,</span>
-        <span class="n">ood_scores</span><span class="o">=</span><span class="n">ood_s</span><span class="p">,</span>
-    <span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="visualize_ood">
-<a class="viewcode-back" href="../../../api/probly.evaluation.ood.html#probly.evaluation.ood.visualize_ood">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">visualize_ood</span><span class="p">(</span>
-    <span class="n">result_data</span><span class="p">:</span> <span class="n">OodEvaluationResult</span><span class="p">,</span>
-    <span class="n">plot_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Figure</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate visualization plots from OODEvaluationResult type.</span>
-
-<span class="sd">    Parameters:</span>
-<span class="sd">    result_data : OodEvaluationResult</span>
-<span class="sd">        The calculated result object containing scores and curve data.</span>
-<span class="sd">        Use `compute_ood_evaluation_result` to generate this.</span>
-<span class="sd">    plot_types : list[str], optional</span>
-<span class="sd">        List of specific plots to return (e.g. [&#39;roc&#39;, &#39;hist&#39;, &#39;pr&#39;]).</span>
-<span class="sd">        If None, all plots are generated.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Dict containing matplotlib Figures for the requested plots.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">available_plots</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="s2">&quot;roc&quot;</span><span class="p">,</span> <span class="s2">&quot;pr&quot;</span><span class="p">}</span>
     <span class="n">requested_plots</span> <span class="o">=</span> <span class="n">available_plots</span> <span class="k">if</span> <span class="n">plot_types</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">set</span><span class="p">(</span><span class="n">plot_types</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">available_plots</span><span class="p">)</span>
     <span class="n">figures</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">if</span> <span class="s2">&quot;hist&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
-        <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;hist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_histogram</span><span class="p">(</span><span class="n">result_data</span><span class="p">)</span>
+        <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;hist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_histogram</span><span class="p">(</span><span class="n">id_scores</span><span class="o">=</span><span class="n">id_s</span><span class="p">,</span> <span class="n">ood_scores</span><span class="o">=</span><span class="n">ood_s</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="s2">&quot;roc&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
-        <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;roc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">result_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;roc&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span> <span class="ow">or</span> <span class="s2">&quot;pr&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">invert_scores</span><span class="p">:</span>
+            <span class="n">id_s_eval</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">id_s</span>
+            <span class="n">ood_s_eval</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">ood_s</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">id_s_eval</span> <span class="o">=</span> <span class="n">id_s</span>
+            <span class="n">ood_s_eval</span> <span class="o">=</span> <span class="n">ood_s</span>
 
-    <span class="k">if</span> <span class="s2">&quot;pr&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
-        <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;pr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_pr_curve</span><span class="p">(</span><span class="n">result_data</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">id_s_eval</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ood_s_eval</span><span class="p">))])</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">id_s_eval</span><span class="p">,</span> <span class="n">ood_s_eval</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s2">&quot;roc&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
+            <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+            <span class="n">auroc</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+            <span class="n">idx_95</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tpr</span> <span class="o">&gt;=</span> <span class="mf">0.95</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">fpr95</span> <span class="o">=</span> <span class="n">fpr</span><span class="p">[</span><span class="n">idx_95</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx_95</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;roc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">fpr</span><span class="o">=</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="o">=</span><span class="n">tpr</span><span class="p">,</span> <span class="n">auroc</span><span class="o">=</span><span class="n">auroc</span><span class="p">,</span> <span class="n">fpr95</span><span class="o">=</span><span class="n">fpr95</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;pr&quot;</span> <span class="ow">in</span> <span class="n">requested_plots</span><span class="p">:</span>
+            <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+            <span class="n">aupr</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">auc</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
+            <span class="n">figures</span><span class="p">[</span><span class="s2">&quot;pr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_pr_curve</span><span class="p">(</span><span class="n">recall</span><span class="o">=</span><span class="n">recall</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">aupr</span><span class="o">=</span><span class="n">aupr</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">figures</span></div>
 

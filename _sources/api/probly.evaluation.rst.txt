@@ -13,4 +13,3 @@
    metrics
    ood
    tasks
-   types
