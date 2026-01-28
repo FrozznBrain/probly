@@ -99,9 +99,9 @@ class ArrayGaussian(GaussianDistribution, np.lib.mixins.NDArrayOperatorsMixin):
             return stacked
         return np.asarray(stacked, dtype=dtype, copy=copy)
 
-    def __array_ufunc__(self, ufunc: np.ufunc, method: str, *inputs: object, **kwargs: object) -> Self:
+    def __array_ufunc__(self, ufunc: np.ufunc, method: str, *inputs: object, **kwargs: object) -> Self:  # noqa: C901, PLR0912
         """Arithmetical operations for Gaussian."""
-        if ufunc is not np.add or method != "__call__":  # just + for now
+        if ufunc not in (np.add, np.multiply) or method != "__call__":  # just + for now
             return NotImplemented
 
         out = kwargs.get("out", ())
@@ -110,23 +110,47 @@ class ArrayGaussian(GaussianDistribution, np.lib.mixins.NDArrayOperatorsMixin):
             if not isinstance(x, (*self.allowed_types, type(self))):
                 return NotImplemented
 
-        unpacked: list[np.ndarray | float | int] = []
+        means: list[np.ndarray | float | int] = []
         gaussians: list[ArrayGaussian] = []
+        det_factors: list[np.ndarray | float | int] = []
 
         for x in inputs:  # array with just means
             if isinstance(x, type(self)):
                 gaussians.append(x)
-                unpacked.append(x.mean)
+                means.append(x.mean)
             else:
-                unpacked.append(x)  # type: ignore[arg-type]
+                means.append(x)  # type: ignore[arg-type]
+                det_factors.append(x)  # type: ignore[arg-type]
 
         if not gaussians:
             return NotImplemented
 
-        new_mean = ufunc(*unpacked, **{k: v for k, v in kwargs.items() if k != "out"})
+        if ufunc is np.add:
+            new_mean = ufunc(*means, **{k: v for k, v in kwargs.items() if k != "out"})
 
-        base = gaussians[0]
-        new_var = base.var
+            new_var = np.zeros_like(np.asarray(new_mean, dtype=float))
+            for g in gaussians:
+                new_var = new_var + np.asarray(g.var, dtype=float)
+
+        else:  # np.multiply
+            # Produkt ist nicht exakt Gaussian -> Moment-Matching (Mean/Var korrekt)
+            mu_prod = np.ones_like(np.asarray(gaussians[0].mean, dtype=float))
+            second_moment_prod = np.ones_like(mu_prod)
+
+            for g in gaussians:
+                mu = np.asarray(g.mean, dtype=float)
+                var = np.asarray(g.var, dtype=float)
+                mu_prod = mu_prod * mu
+                second_moment_prod = second_moment_prod * (var + mu * mu)
+
+            det_prod: np.ndarray | float | int = 1
+            for d in det_factors:
+                det_prod = det_prod * d  # type: ignore[operator]
+
+            det_prod_arr = np.asarray(det_prod, dtype=float)
+
+            new_mean = mu_prod * det_prod_arr
+            new_var = (second_moment_prod - mu_prod * mu_prod) * (det_prod_arr * det_prod_arr)
 
         result = type(self)(mean=np.asarray(new_mean), var=np.asarray(new_var))
 
