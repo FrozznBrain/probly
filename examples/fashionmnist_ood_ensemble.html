@@ -253,6 +253,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/examples/train_bnn_classification.html">Bayesian Neural Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/examples/train_evidential_classification.html">Evidential Model for Classification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../notebooks/examples/train_evidential_regression.html">Evidential Regression Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/examples/transformations_comparison.html">Transformation Comparison: Dropout vs DropConnect vs Ensemble vs Bayesian vs Evidential (PyTorch)</a></li>
 </ul>
 </li>
 </ul>
@@ -410,14 +411,6 @@
     <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
     <span class="n">total</span> <span class="o">+=</span> <span class="n">targets</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">correct</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 5/5 [01:39&lt;00:00, 19.93s/it]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.8809
 </pre></div>
 </div>
 </div>
