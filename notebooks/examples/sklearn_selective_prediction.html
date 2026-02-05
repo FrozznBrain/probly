@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Calibration using Temperature Scaling" href="temperature_scaling_calibration.html" /><link rel="prev" title="A Brief Introduction to PyTraverse" href="pytraverse_tutorial.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Sub-Ensembles for Fast Uncertainty Estimation" href="subensembles_fast_uncertainty.html" /><link rel="prev" title="Uncertainty Quantification using scikit-learn-Ensembles" href="sklearn_ensemble_tutorial.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Using probly with scikit-learn - probly 0.3.1 documentation</title>
@@ -217,7 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../advanced_topics.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples_and_tutorials.html">Examples and Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../methods.html">Implemented methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to probly 🏔️</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing_to_probly.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../references.html">References and Further Reading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ and Troubleshooting</a></li>
 </ul>
@@ -237,10 +237,19 @@
 <li class="toctree-l3"><a class="reference internal" href="evaluation_and_quantification/visualization_tools.html">Visualisation Tools</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="batch_ensemble_notebook.html"><strong>Batch Ensemble Networks</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="bayesian_transformation.html">Bayesian Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dropconnect_transformation.html">Dropconnect Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dropout_transformation.html">Dropout Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble_subensemble_comparison.html"><strong>Ensemble vs SubEnsemble Notebook</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="ensemble_transformation.html">Ensemble Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html">Potential Advantages of Ensembling Random Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#theoretical-background">2. Theoretical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#data-generation">3. Data Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#random-forest-ensemble-prototype">4. Random Forest Ensemble Prototype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#uncertainty-analysis">5. Uncertainty Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#performance-metrics">6. Performance Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ensembling_RandomForests.html#conclusion">7. Conclusion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evidential_classification_transformation.html">Evidential Classification Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evidential_regression_transformation.html">Evidential Regression Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fashionmnist_ood_ensemble.html">Out-of-Distribution Detection with an Ensemble</a></li>
@@ -248,7 +257,10 @@
 <li class="toctree-l2"><a class="reference internal" href="lazy_dispatch_test.html">Lazy Dispatch Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multilib_demo.html">Multilib Demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pytraverse_tutorial.html">A Brief Introduction to PyTraverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn_ensemble_tutorial.html">Uncertainty Quantification using scikit-learn-Ensembles</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Using probly with scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subensembles_fast_uncertainty.html">Sub-Ensembles for Fast Uncertainty Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthetic_regression_dropout.html">Uncertainty for a Synthetic Regression Task using probly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="temperature_scaling_calibration.html">Calibration using Temperature Scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="train_bnn_classification.html">Bayesian Neural Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="train_evidential_classification.html">Evidential Model for Classification</a></li>
@@ -299,7 +311,7 @@
 <h1>Using probly with scikit-learn<a class="headerlink" href="#using-probly-with-scikit-learn" title="Link to this heading">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_covtype</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
@@ -315,7 +327,7 @@
 <h2>Load the covertype dataset<a class="headerlink" href="#load-the-covertype-dataset" title="Link to this heading">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_covtype</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">fetch_covtype</span><span class="p">()</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># make the labels 0-indexed</span>
 </pre></div>
@@ -327,7 +339,7 @@
 <h2>Fit a random forest<a class="headerlink" href="#fit-a-random-forest" title="Link to this heading">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="c1"># We set the max_depth to prevent obtaining only degenerate distributions.</span>
 <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -343,7 +355,7 @@
 <h2>Make an accuracy-rejection curve using total uncertainty<a class="headerlink" href="#make-an-accuracy-rejection-curve-using-total-uncertainty" title="Link to this heading">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">tu</span> <span class="o">=</span> <span class="n">total_entropy</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tu</span> <span class="o">=</span> <span class="n">total_entropy</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
 <span class="n">accuracies</span> <span class="o">=</span> <span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">auc</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">selective_prediction</span><span class="p">(</span><span class="n">tu</span><span class="p">,</span> <span class="n">accuracies</span><span class="p">)</span>
 </pre></div>
@@ -352,7 +364,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)),</span> <span class="n">bins</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)),</span> <span class="n">bins</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Rejected Instances&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy-Rejection Curve, AUC: </span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -372,23 +384,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="temperature_scaling_calibration.html">
+          <a class="next-page" href="subensembles_fast_uncertainty.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Calibration using Temperature Scaling</div>
+                <div class="title">Sub-Ensembles for Fast Uncertainty Estimation</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="pytraverse_tutorial.html">
+          <a class="prev-page" href="sklearn_ensemble_tutorial.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">A Brief Introduction to PyTraverse</div>
+                <div class="title">Uncertainty Quantification using scikit-learn-Ensembles</div>
                 
               </div>
             </a>
